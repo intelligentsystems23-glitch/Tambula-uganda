@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Column 1: Brand & Bio (4 cols) */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-full bg-[#183a26] flex items-center justify-center text-[#e5a93c]">
+              <div className="w-8 h-8 rounded-full bg-[#183a26] flex items-center justify-center text-[#ee5f27]">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
@@ -39,8 +39,8 @@ export const Footer: React.FC<FooterProps> = ({
                 <span className="font-display font-bold text-lg text-white block leading-none">
                   TAMBULA
                 </span>
-                <span className="font-editorial italic text-xs text-[#e5a93c]">
-                  Uganda Tours & Travel
+                <span className="font-editorial italic text-xs text-[#ee5f27]">
+                  Uganda Tours and Travel
                 </span>
               </div>
             </div>
@@ -72,11 +72,11 @@ export const Footer: React.FC<FooterProps> = ({
                 <span className="text-xs font-bold">𝕏</span>
               </a>
               <a
-                href="https://wa.me/17049409953"
+                href="https://wa.me/256781674358"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="WhatsApp"
-                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center transition-colors hover:text-[#22c55e]"
+                className="w-8 h-8 rounded-full bg-white/5 hover:bg-white/15 flex items-center justify-center transition-colors hover:text-[#048310]"
               >
                 <span className="text-xs">💬</span>
               </a>
@@ -101,7 +101,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onViewGroupDepartures}
-                  className="hover:text-[#e5a93c] transition-colors text-left"
+                  className="hover:text-[#ee5f27] transition-colors text-left"
                 >
                   Group Safari Departures
                 </button>
@@ -109,7 +109,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onPlanTripClick}
-                  className="text-[#e5a93c] hover:underline font-medium text-left flex items-center gap-1"
+                  className="text-[#ee5f27] hover:underline font-medium text-left flex items-center gap-1"
                 >
                   <span>★</span>
                   <span>Solo & Private Tailored Safaris</span>
@@ -118,7 +118,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onBookFlightServices}
-                  className="hover:text-[#e5a93c] transition-colors text-left"
+                  className="hover:text-[#ee5f27] transition-colors text-left"
                 >
                   Entebbe Airport (EBB) Pickups
                 </button>
@@ -126,7 +126,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onBookFlightServices}
-                  className="hover:text-[#e5a93c] transition-colors text-left"
+                  className="hover:text-[#ee5f27] transition-colors text-left"
                 >
                   Domestic Bush Flight Bookings
                 </button>
@@ -134,7 +134,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onBookFlightServices}
-                  className="hover:text-[#e5a93c] transition-colors text-left"
+                  className="hover:text-[#ee5f27] transition-colors text-left"
                 >
                   International Flight Ticketing
                 </button>
@@ -151,7 +151,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <a
                   href="#home"
-                  className="hover:text-[#e5a93c] transition-colors block"
+                  className="hover:text-[#ee5f27] transition-colors block"
                 >
                   Uganda Gorilla & Wildlife
                 </a>
@@ -159,7 +159,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={() => onSelectDestinationById('kenya-masai-mara')}
-                  className="hover:text-[#e5a93c] transition-colors text-left"
+                  className="hover:text-[#ee5f27] transition-colors text-left"
                 >
                   Kenya (Masai Mara & Amboseli)
                 </button>
@@ -167,7 +167,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={() => onSelectDestinationById('tanzania-zanzibar')}
-                  className="hover:text-[#e5a93c] transition-colors text-left"
+                  className="hover:text-[#ee5f27] transition-colors text-left"
                 >
                   Zanzibar Beach Holidays
                 </button>
@@ -175,7 +175,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={() => onSelectDestinationById('uae-dubai')}
-                  className="hover:text-[#e5a93c] transition-colors text-left"
+                  className="hover:text-[#ee5f27] transition-colors text-left"
                 >
                   Dubai Luxury & Desert Tours
                 </button>
@@ -183,7 +183,7 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={onPlanTripClick}
-                  className="hover:text-[#e5a93c] transition-colors text-left"
+                  className="hover:text-[#ee5f27] transition-colors text-left"
                 >
                   Rwanda Primate Circuits
                 </button>
@@ -199,33 +199,33 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-2.5 text-white/75">
               <li>
                 <a
-                  href="tel:+17049409953"
-                  className="flex items-center gap-2 hover:text-[#e5a93c] transition-colors"
+                  href="tel:+256781674358"
+                  className="flex items-center gap-2 hover:text-[#ee5f27] transition-colors"
                 >
-                  <Phone className="w-3.5 h-3.5 text-[#22c55e]" />
-                  <span>+1 (704) 940-9953</span>
+                  <Phone className="w-3.5 h-3.5 text-[#048310]" />
+                  <span>+256 781 674358</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:info@tambulagandatours.com"
-                  className="flex items-center gap-2 hover:text-[#e5a93c] transition-colors"
+                  href="mailto:okellopius971@gmail.com"
+                  className="flex items-center gap-2 hover:text-[#ee5f27] transition-colors"
                 >
-                  <Mail className="w-3.5 h-3.5 text-[#e5a93c]" />
-                  <span>info@tambulagandatours.com</span>
+                  <Mail className="w-3.5 h-3.5 text-[#ee5f27]" />
+                  <span>okellopius971@gmail.com</span>
                 </a>
               </li>
               <li>
                 <a
                   href="https://tambulagandatours.com"
-                  className="flex items-center gap-2 hover:text-[#e5a93c] transition-colors"
+                  className="flex items-center gap-2 hover:text-[#ee5f27] transition-colors"
                 >
                   <Globe className="w-3.5 h-3.5 text-[#a3b899]" />
                   <span>www.tambulagandatours.com</span>
                 </a>
               </li>
               <li className="pt-1 flex items-start gap-2 text-white/60">
-                <MapPin className="w-3.5 h-3.5 text-[#e5a93c] shrink-0 mt-0.5" />
+                <MapPin className="w-3.5 h-3.5 text-[#ee5f27] shrink-0 mt-0.5" />
                 <span>Headquarters: Kampala & Entebbe, Uganda. Regional Concierge & 24/7 Dispatch Desk.</span>
               </li>
             </ul>
@@ -246,10 +246,10 @@ export const Footer: React.FC<FooterProps> = ({
             <span className="text-white/70">Licensed Tour Operator</span>
             <span>·</span>
             <a
-              href="https://wa.me/17049409953"
+              href="https://wa.me/256781674358"
               target="_blank"
               rel="noreferrer"
-              className="text-[#25D366] hover:underline"
+              className="text-[#048310] hover:underline font-medium"
             >
               WhatsApp Direct
             </a>

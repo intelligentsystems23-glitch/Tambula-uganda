@@ -33,7 +33,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="lg:col-span-6 space-y-6">
             {/* Tag Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#e8efe8] border border-[#cfded0] text-[#1c3826] text-xs font-bold tracking-wider uppercase">
-              <span className="w-2 h-2 rounded-full bg-[#2e7d32] animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-[#048310] animate-pulse" />
               <span>UGANDA, EAST AFRICA & INTERNATIONAL EXPEDITIONS</span>
             </div>
 
@@ -41,7 +41,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.65rem] font-bold text-[#102318] leading-[1.1] tracking-tight">
               Discover Africa’s wonders.
               <br />
-              <span className="font-editorial italic font-normal text-[#bf7d1b]">
+              <span className="font-editorial italic font-normal text-[#ee5f27]">
                 Journey
               </span>{' '}
               beyond borders.
@@ -55,7 +55,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             </p>
 
             {/* Editorial Quote Banner */}
-            <div className="border-l-4 border-[#bf7d1b] pl-4 py-1.5 bg-[#f5ede0]/50 rounded-r-md">
+            <div className="border-l-4 border-[#ee5f27] pl-4 py-1.5 bg-[#fdf2ec] rounded-r-md">
               <p className="font-editorial italic text-lg sm:text-xl text-[#3b433c]">
                 “Travel that connects hearts, honors nature, and stays with you forever.”
               </p>
@@ -69,14 +69,14 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   onClick={onExploreServices}
                   className="inline-flex items-center gap-2.5 bg-[#0f2418] hover:bg-[#1b3b28] text-white px-6 py-3.5 rounded-xl font-semibold text-sm shadow-md hover:shadow-lg transition-all active:scale-98"
                 >
-                  <Compass className="w-4 h-4 text-[#e5a93c]" />
+                  <Compass className="w-4 h-4 text-[#ee5f27]" />
                   <span>Explore Safari Services</span>
                 </button>
 
                 <button
                   id="hero-destinations-button"
                   onClick={onExploreDestinations}
-                  className="inline-flex items-center gap-2.5 bg-[#bf7d1b] hover:bg-[#a66a13] text-white px-6 py-3.5 rounded-xl font-semibold text-sm shadow-md hover:shadow-lg transition-all active:scale-98"
+                  className="inline-flex items-center gap-2.5 bg-[#ee5f27] hover:bg-[#d64e18] text-white px-6 py-3.5 rounded-xl font-semibold text-sm shadow-md hover:shadow-lg transition-all active:scale-98"
                 >
                   <Globe className="w-4 h-4 text-white" />
                   <span>Regional & World Destinations</span>
@@ -90,7 +90,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                   onClick={onCustomItinerary}
                   className="inline-flex items-center gap-2 bg-white hover:bg-[#f5f1eb] text-[#1c2e22] border border-[#d8cfc3] px-5 py-2.5 rounded-xl font-medium text-xs shadow-2xs transition-all"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-[#bf7d1b]" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#ee5f27]" />
                   <span>Custom Itinerary</span>
                 </button>
               </div>
@@ -99,15 +99,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             {/* Trust Checkmarks */}
             <div className="pt-3 border-t border-[#e8e0d4] flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-[#3b463d] font-medium">
               <div className="flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-[#2e7d32]" />
+                <Check className="w-4 h-4 text-[#048310]" />
                 <span>Primate & Big 5 Safaris</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-[#2e7d32]" />
+                <Check className="w-4 h-4 text-[#048310]" />
                 <span>Airport Shuttles & Flights</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <Check className="w-4 h-4 text-[#2e7d32]" />
+                <Check className="w-4 h-4 text-[#048310]" />
                 <span>Direct Community & Conservation Give-Back</span>
               </div>
             </div>
@@ -134,7 +134,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
                 {/* Location Badge Top Left */}
                 <div className="absolute top-4 left-4 z-20 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 text-white/90 text-xs">
-                  <MapPin className="w-3.5 h-3.5 text-[#e5a93c]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#ee5f27]" />
                   <span>{currentSlide.location}</span>
                 </div>
 
@@ -159,7 +159,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 {/* Bottom Overlay Text Box */}
                 <div className="absolute bottom-12 left-0 right-0 p-6 z-20 text-white">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[#e5a93c] text-[11px] font-bold tracking-widest uppercase">
+                    <span className="text-[#ee5f27] text-[11px] font-bold tracking-widest uppercase">
                       {currentSlide.regionTag}
                     </span>
                     <span className="bg-white/20 backdrop-blur-xs px-2.5 py-0.5 rounded text-[11px] font-medium text-white/90">
@@ -182,7 +182,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                       onClick={() => setCurrentSlideIndex(idx)}
                       className={`h-2 rounded-full transition-all ${
                         idx === currentSlideIndex
-                          ? 'w-6 bg-[#e5a93c]'
+                          ? 'w-6 bg-[#ee5f27]'
                           : 'w-2 bg-white/40 hover:bg-white/70'
                       }`}
                       aria-label={`Slide ${idx + 1}`}
@@ -198,10 +198,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               className="absolute -bottom-6 left-6 right-6 sm:left-10 sm:right-10 z-30 bg-white/95 backdrop-blur-md rounded-xl p-3.5 border border-[#d6cbbe] shadow-lg flex items-center gap-3 text-xs"
             >
               <div className="w-9 h-9 rounded-lg bg-[#e8efe8] text-[#1b3f27] flex items-center justify-center shrink-0">
-                <HeartHandshake className="w-5 h-5 text-[#2e7d32]" />
+                <HeartHandshake className="w-5 h-5 text-[#048310]" />
               </div>
               <div>
-                <span className="font-bold text-[#0f2418] uppercase tracking-wider text-[10px] block text-[#bf7d1b]">
+                <span className="font-bold text-[#0f2418] uppercase tracking-wider text-[10px] block text-[#ee5f27]">
                   TAMBULA IMPACT
                 </span>
                 <p className="text-[#3b473e] font-medium text-xs leading-snug">

@@ -28,7 +28,7 @@ export const GroupDeparturesModal: React.FC<GroupDeparturesModalProps> = ({
         {/* Header */}
         <div className="bg-[#0e2117] text-white p-6 rounded-t-2xl flex items-center justify-between border-b border-white/10">
           <div>
-            <span className="text-[#e5a93c] text-xs font-bold tracking-widest uppercase block">
+            <span className="text-[#ee5f27] text-xs font-bold tracking-widest uppercase block">
               2026 – 2027 CONFIRMED EXPEDITIONS
             </span>
             <h2 className="font-display text-2xl font-bold text-white mt-1">
@@ -59,9 +59,9 @@ export const GroupDeparturesModal: React.FC<GroupDeparturesModalProps> = ({
                   <span
                     className={`px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider ${
                       dep.status === 'Guaranteed'
-                        ? 'bg-[#e8efe8] text-[#1e5229]'
+                        ? 'bg-[#e8efe8] text-[#048310]'
                         : dep.status === 'Filling Fast'
-                        ? 'bg-[#fff4e5] text-[#b45309]'
+                        ? 'bg-[#fdf2ec] text-[#ee5f27]'
                         : 'bg-[#f1ede6] text-[#4d5950]'
                     }`}
                   >
@@ -109,7 +109,7 @@ export const GroupDeparturesModal: React.FC<GroupDeparturesModalProps> = ({
                   className="inline-flex items-center gap-1.5 bg-[#0e2117] hover:bg-[#1a3828] text-white px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all shadow-xs"
                 >
                   <span>Reserve Seat</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#e5a93c]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#ee5f27]" />
                 </button>
               </div>
             </div>

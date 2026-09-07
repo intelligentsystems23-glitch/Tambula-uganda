@@ -43,12 +43,12 @@ export const GalleryLightboxModal: React.FC<GalleryLightboxModalProps> = ({
         <div className="p-6 bg-[#0e2117] text-white border-t border-white/10 space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-[#e5a93c] text-xs font-bold tracking-widest uppercase">
+              <span className="text-[#ee5f27] text-xs font-bold tracking-widest uppercase">
                 {photo.category}
               </span>
               <span className="text-white/40">•</span>
               <span className="text-xs text-white/80 flex items-center gap-1">
-                <MapPin className="w-3.5 h-3.5 text-[#22c55e]" />
+                <MapPin className="w-3.5 h-3.5 text-[#048310]" />
                 <span>{photo.location}</span>
               </span>
             </div>
@@ -64,7 +64,7 @@ export const GalleryLightboxModal: React.FC<GalleryLightboxModalProps> = ({
 
           {photo.details && (
             <div className="pt-2 text-xs text-white/70 leading-relaxed border-t border-white/10 flex items-start gap-2">
-              <Info className="w-4 h-4 text-[#e5a93c] shrink-0 mt-0.5" />
+              <Info className="w-4 h-4 text-[#ee5f27] shrink-0 mt-0.5" />
               <span>{photo.details}</span>
             </div>
           )}

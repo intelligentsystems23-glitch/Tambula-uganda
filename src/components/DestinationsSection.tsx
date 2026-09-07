@@ -18,7 +18,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
           <div className="space-y-3 max-w-2xl">
-            <div className="inline-flex items-center gap-1.5 text-[#bf7d1b] text-xs font-bold tracking-widest uppercase">
+            <div className="inline-flex items-center gap-1.5 text-[#ee5f27] text-xs font-bold tracking-widest uppercase">
               <Compass className="w-3.5 h-3.5" />
               <span>BEYOND UGANDA</span>
             </div>
@@ -37,7 +37,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
             <button
               id="btn-request-all-guides"
               onClick={onRequestAllGuides}
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#102419] hover:text-[#bf7d1b] transition-colors group"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#102419] hover:text-[#ee5f27] transition-colors group"
             >
               <span>Request All Destination Guides</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -121,7 +121,7 @@ export const DestinationsSection: React.FC<DestinationsSectionProps> = ({
                   className="inline-flex items-center gap-1.5 bg-[#0e2117] hover:bg-[#1a3828] text-white px-3.5 py-2 rounded-lg text-xs font-semibold tracking-wide transition-all active:scale-98 shadow-xs"
                 >
                   <span>Explore Itinerary</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#e5a93c]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#ee5f27]" />
                 </button>
               </div>
             </div>

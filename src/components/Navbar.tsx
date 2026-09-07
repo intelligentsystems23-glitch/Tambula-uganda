@@ -48,7 +48,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="w-5 h-5 text-[#e5a93c]"
+                className="w-5 h-5 text-[#ee5f27]"
               >
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
               </svg>
@@ -58,8 +58,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }
               <span className="font-display text-2xl font-bold tracking-tight text-[#0f2418] leading-none">
                 TAMBULA
               </span>
-              <span className="font-editorial italic text-xs tracking-wider text-[#bf7d1b] font-medium mt-0.5">
-                Tours & Travel
+              <span className="font-editorial italic text-xs tracking-wider text-[#ee5f27] font-medium mt-0.5">
+                Uganda Tours and Travel
               </span>
             </div>
           </a>
@@ -82,7 +82,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }
                 >
                   {link.label}
                   {isActive && (
-                    <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-0.5 bg-[#bf7d1b] rounded-full" />
+                    <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-0.5 bg-[#ee5f27] rounded-full" />
                   )}
                 </a>
               );
@@ -112,11 +112,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }
                 <span className="text-xs font-semibold">𝕏</span>
               </a>
               <a
-                href="https://wa.me/17049409953"
+                href="https://wa.me/256781674358"
                 target="_blank"
                 rel="noreferrer"
                 aria-label="WhatsApp"
-                className="w-7 h-7 rounded-full hover:bg-[#f1ede6] flex items-center justify-center transition-colors hover:text-[#25D366]"
+                className="w-7 h-7 rounded-full hover:bg-[#f1ede6] flex items-center justify-center transition-colors hover:text-[#048310]"
               >
                 <span className="text-xs font-semibold">💬</span>
               </a>
@@ -171,7 +171,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }
                 key={link.label}
                 href={link.href}
                 onClick={(e) => handleScrollTo(e, link.href)}
-                className="text-sm font-medium text-[#2d372f] hover:text-[#bf7d1b] py-1.5"
+                className="text-sm font-medium text-[#2d372f] hover:text-[#ee5f27] py-1.5"
               >
                 {link.label}
               </a>
@@ -184,14 +184,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }
               <span>·</span>
               <a href="https://x.com" target="_blank" rel="noreferrer">𝕏</a>
               <span>·</span>
-              <a href="https://wa.me/17049409953" target="_blank" rel="noreferrer">WhatsApp</a>
+              <a href="https://wa.me/256781674358" target="_blank" rel="noreferrer">WhatsApp</a>
             </div>
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 onPlanTripClick();
               }}
-              className="bg-[#bf7d1b] text-white px-4 py-1.5 rounded-md text-xs font-semibold"
+              className="bg-[#ee5f27] hover:bg-[#d64e18] text-white px-4 py-1.5 rounded-md text-xs font-semibold"
             >
               Custom Safari Quote
             </button>

@@ -25,7 +25,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             How We Travel Together
           </h2>
 
-          <p className="font-editorial italic text-xl sm:text-2xl text-[#bf7d1b]">
+          <p className="font-editorial italic text-xl sm:text-2xl text-[#ee5f27]">
             Tailored safaris, group adventures & seamless air travel concierge
           </p>
 
@@ -45,7 +45,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             <div className="space-y-5">
               {/* Badges */}
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-wider text-[#2e7d32] uppercase">
+                <span className="text-[10px] font-bold tracking-wider text-[#048310] uppercase">
                   COMMUNITY & CAMARADERIE
                 </span>
                 <span className="px-2.5 py-1 rounded-full bg-[#f1ede6] text-[#3d4b41] text-[11px] font-medium">
@@ -54,8 +54,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               </div>
 
               {/* Icon */}
-              <div className="w-12 h-12 rounded-xl bg-[#eaf3eb] text-[#1c4b2b] flex items-center justify-center">
-                <Users className="w-6 h-6 text-[#1c4b2b]" />
+              <div className="w-12 h-12 rounded-xl bg-[#048310]/10 text-[#048310] flex items-center justify-center">
+                <Users className="w-6 h-6 text-[#048310]" />
               </div>
 
               {/* Content */}
@@ -74,19 +74,19 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               {/* Bullet Points */}
               <div className="pt-2 space-y-2.5 border-t border-[#f0eae0] text-xs text-[#303d33]">
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Scheduled small group departures throughout the year</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Shared 4x4 safari transport with guaranteed window seats</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Licensed senior naturalists & safari directors</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Budget-friendly pricing with premium lodge selections</span>
                 </div>
               </div>
@@ -100,7 +100,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 className="w-full inline-flex items-center justify-center gap-2 bg-[#0e2117] hover:bg-[#1a3828] text-white py-3 px-4 rounded-xl text-xs font-semibold tracking-wide transition-all"
               >
                 <span>View Group Departures</span>
-                <ArrowRight className="w-4 h-4 text-[#e5a93c]" />
+                <ArrowRight className="w-4 h-4 text-[#ee5f27]" />
               </button>
             </div>
           </div>
@@ -108,27 +108,27 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
           {/* Card 2: Solo & Private Safaris (Featured with Ochre styling) */}
           <div
             id="service-card-private-safaris"
-            className="bg-white rounded-2xl p-7 border-2 border-[#bf7d1b] shadow-lg relative flex flex-col justify-between -translate-y-1"
+            className="bg-white rounded-2xl p-7 border-2 border-[#ee5f27] shadow-lg relative flex flex-col justify-between -translate-y-1"
           >
             {/* Top Highlight Ribbon */}
-            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#bf7d1b] text-white px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-sm">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#ee5f27] text-white px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase shadow-sm">
               ★ BESPOKE VIP EXPERIENCE
             </div>
 
             <div className="space-y-5 pt-1">
               {/* Badges */}
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-wider text-[#bf7d1b] uppercase">
+                <span className="text-[10px] font-bold tracking-wider text-[#ee5f27] uppercase">
                   100% CUSTOMIZED FOR YOU
                 </span>
-                <span className="px-2.5 py-1 rounded-full bg-[#fbf3e7] text-[#92550e] text-[11px] font-medium border border-[#ebd8bd]">
+                <span className="px-2.5 py-1 rounded-full bg-[#fdf2ec] text-[#ee5f27] text-[11px] font-medium border border-[#ee5f27]/30">
                   Flexible Dates
                 </span>
               </div>
 
               {/* Icon */}
-              <div className="w-12 h-12 rounded-xl bg-[#fbf2e5] text-[#bf7d1b] flex items-center justify-center">
-                <User className="w-6 h-6 text-[#bf7d1b]" />
+              <div className="w-12 h-12 rounded-xl bg-[#ee5f27]/10 text-[#ee5f27] flex items-center justify-center">
+                <User className="w-6 h-6 text-[#ee5f27]" />
               </div>
 
               {/* Content */}
@@ -147,19 +147,19 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               {/* Bullet Points */}
               <div className="pt-2 space-y-2.5 border-t border-[#f0eae0] text-xs text-[#303d33]">
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Dedicated private 4x4 Land Cruiser with pop-up viewing roof</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Personal professional guide focused entirely on your preferences</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Custom photography stops, flexible start times & game drives</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Perfect for solo adventurers, honeymooners & multi-gen families</span>
                 </div>
               </div>
@@ -170,7 +170,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               <button
                 id="btn-tailor-private-safari"
                 onClick={onTailorPrivateSafari}
-                className="w-full inline-flex items-center justify-center gap-2 bg-[#bf7d1b] hover:bg-[#a56710] text-white py-3 px-4 rounded-xl text-xs font-semibold tracking-wide transition-all shadow-md"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#ee5f27] hover:bg-[#d64e18] text-white py-3 px-4 rounded-xl text-xs font-semibold tracking-wide transition-all shadow-md"
               >
                 <span>Tailor A Private Safari</span>
                 <ArrowRight className="w-4 h-4 text-white" />
@@ -186,7 +186,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
             <div className="space-y-5">
               {/* Badges */}
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold tracking-wider text-[#1d5c36] uppercase">
+                <span className="text-[10px] font-bold tracking-wider text-[#048310] uppercase">
                   AIR CONCIERGE & TRANSFERS
                 </span>
                 <span className="px-2.5 py-1 rounded-full bg-[#f1ede6] text-[#3d4b41] text-[11px] font-medium">
@@ -195,8 +195,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               </div>
 
               {/* Icon */}
-              <div className="w-12 h-12 rounded-xl bg-[#eaf3eb] text-[#1c4b2b] flex items-center justify-center">
-                <Plane className="w-6 h-6 text-[#1c4b2b]" />
+              <div className="w-12 h-12 rounded-xl bg-[#048310]/10 text-[#048310] flex items-center justify-center">
+                <Plane className="w-6 h-6 text-[#048310]" />
               </div>
 
               {/* Content */}
@@ -215,19 +215,19 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
               {/* Bullet Points */}
               <div className="pt-2 space-y-2.5 border-t border-[#f0eae0] text-xs text-[#303d33]">
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Entebbe International Airport (EBB) VIP meet & greet desk</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Modern air-conditioned transfer vans & executive sedans</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Domestic bush flights to Bwindi (Kihihi), Queen Elizabeth & Murchison</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="text-[#bf7d1b] font-bold text-sm leading-none">•</span>
+                  <span className="text-[#ee5f27] font-bold text-sm leading-none">•</span>
                   <span>Regional & international flight ticketing and reconfirmation</span>
                 </div>
               </div>
@@ -241,7 +241,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({
                 className="w-full inline-flex items-center justify-center gap-2 bg-[#0e2117] hover:bg-[#1a3828] text-white py-3 px-4 rounded-xl text-xs font-semibold tracking-wide transition-all"
               >
                 <span>Book Airport / Flight Services</span>
-                <ArrowRight className="w-4 h-4 text-[#e5a93c]" />
+                <ArrowRight className="w-4 h-4 text-[#ee5f27]" />
               </button>
             </div>
           </div>

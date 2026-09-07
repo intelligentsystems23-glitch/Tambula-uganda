@@ -18,23 +18,23 @@ export const TopBar: React.FC<TopBarProps> = ({ currentCurrency, onCurrencyChang
         <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
           <a
             id="topbar-whatsapp-link"
-            href="https://wa.me/17049409953"
+            href="https://wa.me/256781674358"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 hover:text-[#e5a93c] transition-colors"
+            className="flex items-center gap-1.5 hover:text-[#ee5f27] transition-colors"
           >
-            <span className="text-[#25D366] text-sm">●</span>
+            <span className="text-[#048310] text-sm">●</span>
             <span className="text-white/90 font-medium">WhatsApp:</span>
-            <span>+1 (704) 940-9953</span>
+            <span>+256 781 674358</span>
           </a>
 
           <a
             id="topbar-email-link"
-            href="mailto:info@tambulagandatours.com"
-            className="flex items-center gap-1.5 hover:text-[#e5a93c] transition-colors"
+            href="mailto:okellopius971@gmail.com"
+            className="flex items-center gap-1.5 hover:text-[#ee5f27] transition-colors"
           >
-            <Mail className="w-3.5 h-3.5 text-[#e5a93c]" />
-            <span>info@tambulagandatours.com</span>
+            <Mail className="w-3.5 h-3.5 text-[#ee5f27]" />
+            <span>okellopius971@gmail.com</span>
           </a>
 
           <div className="hidden lg:flex items-center gap-1.5 text-white/65">
@@ -45,8 +45,8 @@ export const TopBar: React.FC<TopBarProps> = ({ currentCurrency, onCurrencyChang
 
         {/* Right Certification & Currency Switcher */}
         <div className="flex items-center gap-4">
-          <div className="hidden sm:flex items-center gap-1.5 text-[#e5a93c] font-medium">
-            <Award className="w-3.5 h-3.5 text-[#e5a93c]" />
+          <div className="hidden sm:flex items-center gap-1.5 text-[#ee5f27] font-medium">
+            <Award className="w-3.5 h-3.5 text-[#ee5f27]" />
             <span>Certified Tour Operator & Air Concierge</span>
           </div>
 
@@ -78,7 +78,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentCurrency, onCurrencyChang
                         setCurrencyDropdownOpen(false);
                       }}
                       className={`w-full text-left px-3 py-1.5 text-xs flex items-center justify-between hover:bg-white/10 transition-colors ${
-                        currentCurrency === code ? 'text-[#e5a93c] font-semibold bg-white/5' : 'text-white/80'
+                        currentCurrency === code ? 'text-[#ee5f27] font-semibold bg-white/5' : 'text-white/80'
                       }`}
                     >
                       <span className="flex items-center gap-2">

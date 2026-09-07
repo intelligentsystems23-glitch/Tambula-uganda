@@ -16,8 +16,8 @@ export const ConservationSection: React.FC<ConservationSectionProps> = ({ onSupp
           {/* Left Column: Narrative & 3 Initiatives */}
           <div className="lg:col-span-6 space-y-6">
             {/* Tag */}
-            <div className="inline-flex items-center gap-1.5 text-[#e5a93c] text-xs font-bold tracking-widest uppercase">
-              <Leaf className="w-4 h-4 text-[#22c55e]" />
+            <div className="inline-flex items-center gap-1.5 text-[#ee5f27] text-xs font-bold tracking-widest uppercase">
+              <Leaf className="w-4 h-4 text-[#048310]" />
               <span>SUSTAINABLE TOURISM IN ACTION</span>
             </div>
 
@@ -41,7 +41,7 @@ export const ConservationSection: React.FC<ConservationSectionProps> = ({ onSupp
             <div className="space-y-4 pt-2">
               {/* Program 1 */}
               <div className="flex items-start gap-4 p-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-[#1a442b] text-[#22c55e] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-[#048310]/20 text-[#048310] flex items-center justify-center shrink-0">
                   <GraduationCap className="w-5 h-5" />
                 </div>
                 <div>
@@ -58,7 +58,7 @@ export const ConservationSection: React.FC<ConservationSectionProps> = ({ onSupp
 
               {/* Program 2 */}
               <div className="flex items-start gap-4 p-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-[#4b3b18] text-[#e5a93c] flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-[#ee5f27]/20 text-[#ee5f27] flex items-center justify-center shrink-0">
                   <Sprout className="w-5 h-5" />
                 </div>
                 <div>
@@ -94,7 +94,7 @@ export const ConservationSection: React.FC<ConservationSectionProps> = ({ onSupp
               <button
                 id="btn-support-outreach"
                 onClick={onSupportOutreach}
-                className="inline-flex items-center gap-2 bg-[#bf7d1b] hover:bg-[#a66a13] text-white px-6 py-3 rounded-xl text-xs font-semibold tracking-wide shadow-md transition-all active:scale-98"
+                className="inline-flex items-center gap-2 bg-[#ee5f27] hover:bg-[#d64e18] text-white px-6 py-3 rounded-xl text-xs font-semibold tracking-wide shadow-md transition-all active:scale-98"
               >
                 <HeartHandshake className="w-4 h-4" />
                 <span>Support or Visit Our Outreach</span>
@@ -120,7 +120,7 @@ export const ConservationSection: React.FC<ConservationSectionProps> = ({ onSupp
                     <span className="font-display text-sm sm:text-base font-bold text-white tracking-wide">
                       PLANTING ROOTS FOR TOMORROW
                     </span>
-                    <span className="bg-[#2e7d32] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
+                    <span className="bg-[#048310] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
                       Active Program
                     </span>
                   </div>

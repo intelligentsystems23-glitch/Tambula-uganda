@@ -50,7 +50,7 @@ export const ItineraryModal: React.FC<ItineraryModalProps> = ({
           <div className="absolute bottom-4 left-6 right-6 z-10 text-white">
             <div className="flex items-center gap-2 mb-1">
               <span className="text-base">{destination.flag}</span>
-              <span className="text-[#e5a93c] text-xs font-bold tracking-widest uppercase">
+              <span className="text-[#ee5f27] text-xs font-bold tracking-widest uppercase">
                 {destination.country}
               </span>
               <span className="text-white/60">•</span>
@@ -67,7 +67,7 @@ export const ItineraryModal: React.FC<ItineraryModalProps> = ({
           <div className="flex items-center gap-6">
             <div>
               <span className="text-white/60 text-[10px] block uppercase font-bold">FROM</span>
-              <span className="font-display text-xl font-bold text-[#e5a93c]">
+              <span className="font-display text-xl font-bold text-[#ee5f27]">
                 {formatPrice(destination.priceFromUSD, currency)}
               </span>
               <span className="text-white/60 text-[11px]"> / person</span>
@@ -84,7 +84,7 @@ export const ItineraryModal: React.FC<ItineraryModalProps> = ({
 
           <button
             onClick={() => onBookThisItinerary(destination.title)}
-            className="inline-flex items-center gap-2 bg-[#bf7d1b] hover:bg-[#a66810] text-white px-5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all shadow-sm"
+            className="inline-flex items-center gap-2 bg-[#ee5f27] hover:bg-[#d64e18] text-white px-5 py-2 rounded-xl text-xs font-bold tracking-wide transition-all shadow-sm"
           >
             <span>Reserve or Customize</span>
             <ArrowRight className="w-3.5 h-3.5" />
@@ -97,7 +97,7 @@ export const ItineraryModal: React.FC<ItineraryModalProps> = ({
             onClick={() => setActiveTab('schedule')}
             className={`py-3.5 border-b-2 transition-colors ${
               activeTab === 'schedule'
-                ? 'border-[#bf7d1b] text-[#0e2117]'
+                ? 'border-[#ee5f27] text-[#0e2117]'
                 : 'border-transparent text-[#66746a] hover:text-[#0e2117]'
             }`}
           >
@@ -107,7 +107,7 @@ export const ItineraryModal: React.FC<ItineraryModalProps> = ({
             onClick={() => setActiveTab('included')}
             className={`py-3.5 border-b-2 transition-colors ${
               activeTab === 'included'
-                ? 'border-[#bf7d1b] text-[#0e2117]'
+                ? 'border-[#ee5f27] text-[#0e2117]'
                 : 'border-transparent text-[#66746a] hover:text-[#0e2117]'
             }`}
           >
@@ -117,7 +117,7 @@ export const ItineraryModal: React.FC<ItineraryModalProps> = ({
             onClick={() => setActiveTab('packing')}
             className={`py-3.5 border-b-2 transition-colors ${
               activeTab === 'packing'
-                ? 'border-[#bf7d1b] text-[#0e2117]'
+                ? 'border-[#ee5f27] text-[#0e2117]'
                 : 'border-transparent text-[#66746a] hover:text-[#0e2117]'
             }`}
           >
@@ -155,7 +155,7 @@ export const ItineraryModal: React.FC<ItineraryModalProps> = ({
                       {d.description}
                     </p>
                     {d.accommodation && (
-                      <div className="pt-2 text-[11px] text-[#2e7d32] font-medium flex items-center gap-1">
+                      <div className="pt-2 text-[11px] text-[#048310] font-medium flex items-center gap-1">
                         <MapPin className="w-3 h-3" />
                         <span>Lodging: {d.accommodation}</span>
                       </div>
@@ -169,14 +169,14 @@ export const ItineraryModal: React.FC<ItineraryModalProps> = ({
           {activeTab === 'included' && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="p-5 rounded-xl bg-white border border-[#e5dcce] space-y-3">
-                <h4 className="font-display font-bold text-sm text-[#1b432a] flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#2e7d32]" />
+                <h4 className="font-display font-bold text-sm text-[#048310] flex items-center gap-2">
+                  <Check className="w-4 h-4 text-[#048310]" />
                   <span>Everything Included in This Tour</span>
                 </h4>
                 <ul className="space-y-2 text-xs text-[#435146]">
                   {destination.included.map((inc, i) => (
                     <li key={i} className="flex items-start gap-2">
-                      <span className="text-[#2e7d32] font-bold">✓</span>
+                      <span className="text-[#048310] font-bold">✓</span>
                       <span>{inc}</span>
                     </li>
                   ))}

@@ -7,7 +7,7 @@ export const GenesisSection: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-12 space-y-3">
-          <div className="inline-flex items-center gap-1.5 text-[#bf7d1b] text-xs font-bold tracking-widest uppercase">
+          <div className="inline-flex items-center gap-1.5 text-[#ee5f27] text-xs font-bold tracking-widest uppercase">
             <Sparkles className="w-3.5 h-3.5" />
             <span>THE GENESIS OF TAMBULA</span>
           </div>
@@ -15,7 +15,7 @@ export const GenesisSection: React.FC = () => {
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#102419] tracking-tight leading-tight">
             Born from the Pearl of Africa.
             <br />
-            <span className="font-editorial italic font-normal text-[#bf7d1b]">
+            <span className="font-editorial italic font-normal text-[#ee5f27]">
               Walked with purpose.
             </span>
           </h2>
@@ -29,7 +29,7 @@ export const GenesisSection: React.FC = () => {
               In Luganda—one of Uganda’s oldest native tongues—
               <strong className="text-[#102419] font-semibold">“Tambula”</strong> carries a profound
               meaning:{' '}
-              <em className="font-editorial text-[#bf7d1b] text-lg">
+              <em className="font-editorial text-[#ee5f27] text-lg">
                 to journey, to walk, to embark on a purposeful expedition.
               </em>
             </p>
@@ -54,7 +54,7 @@ export const GenesisSection: React.FC = () => {
               {/* Pillar 1 */}
               <div className="bg-white rounded-xl p-4 border border-[#e8dfd2] shadow-2xs space-y-2">
                 <div className="w-9 h-9 rounded-lg bg-[#0e2117] text-white flex items-center justify-center">
-                  <Compass className="w-4 h-4 text-[#e5a93c]" />
+                  <Compass className="w-4 h-4 text-[#ee5f27]" />
                 </div>
                 <h3 className="font-display font-bold text-sm text-[#102419]">
                   Rooted in Uganda
@@ -66,7 +66,7 @@ export const GenesisSection: React.FC = () => {
 
               {/* Pillar 2 */}
               <div className="bg-white rounded-xl p-4 border border-[#e8dfd2] shadow-2xs space-y-2">
-                <div className="w-9 h-9 rounded-lg bg-[#bf7d1b] text-white flex items-center justify-center">
+                <div className="w-9 h-9 rounded-lg bg-[#ee5f27] text-white flex items-center justify-center">
                   <Users2 className="w-4 h-4" />
                 </div>
                 <h3 className="font-display font-bold text-sm text-[#102419]">
@@ -79,7 +79,7 @@ export const GenesisSection: React.FC = () => {
 
               {/* Pillar 3 */}
               <div className="bg-white rounded-xl p-4 border border-[#e8dfd2] shadow-2xs space-y-2">
-                <div className="w-9 h-9 rounded-lg bg-[#eaf3eb] text-[#2e7d32] flex items-center justify-center">
+                <div className="w-9 h-9 rounded-lg bg-[#048310]/15 text-[#048310] flex items-center justify-center">
                   <Heart className="w-4 h-4" />
                 </div>
                 <h3 className="font-display font-bold text-sm text-[#102419]">
@@ -99,13 +99,13 @@ export const GenesisSection: React.FC = () => {
               className="bg-[#fbf7f0] rounded-2xl p-7 sm:p-8 border border-[#e2d5c3] shadow-md relative"
             >
               {/* Quote Mark Icon */}
-              <div className="w-10 h-10 rounded-full bg-[#0e2117] text-[#e5a93c] flex items-center justify-center mb-4">
+              <div className="w-10 h-10 rounded-full bg-[#0e2117] text-[#ee5f27] flex items-center justify-center mb-4">
                 <Quote className="w-5 h-5" />
               </div>
 
               {/* Header */}
               <div className="mb-4">
-                <span className="text-[10px] font-bold tracking-widest text-[#bf7d1b] uppercase block">
+                <span className="text-[10px] font-bold tracking-widest text-[#ee5f27] uppercase block">
                   FOUNDER'S PHILOSOPHY
                 </span>
                 <h3 className="font-display text-xl font-bold text-[#102419]">
@@ -114,7 +114,7 @@ export const GenesisSection: React.FC = () => {
               </div>
 
               {/* Italic Callout */}
-              <div className="border-l-2 border-[#bf7d1b] pl-4 my-4">
+              <div className="border-l-2 border-[#ee5f27] pl-4 my-4">
                 <p className="font-editorial italic text-base sm:text-lg text-[#323d35] leading-relaxed">
                   “Uganda is not simply a destination you tick off a bucket list. It is an emotional
                   embrace—a land where the Nile begins, where chimpanzees laugh in the canopy, and
@@ -130,8 +130,8 @@ export const GenesisSection: React.FC = () => {
                   <div className="text-[#647268] text-[11px]">Kampala · Entebbe · Bwindi Outpost</div>
                 </div>
 
-                <div className="inline-flex items-center gap-1.5 bg-[#f5ecdd] text-[#8e520c] px-3 py-1 rounded-full font-semibold text-[11px] border border-[#e3d2ba]">
-                  <Award className="w-3.5 h-3.5 text-[#bf7d1b]" />
+                <div className="inline-flex items-center gap-1.5 bg-[#fdf2ec] text-[#ee5f27] px-3 py-1 rounded-full font-semibold text-[11px] border border-[#ee5f27]/25">
+                  <Award className="w-3.5 h-3.5 text-[#ee5f27]" />
                   <span>Registered UWA Partner</span>
                 </div>
               </div>

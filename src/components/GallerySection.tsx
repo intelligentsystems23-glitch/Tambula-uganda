@@ -14,7 +14,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onPhotoClick }) 
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 pb-4 border-b border-white/10 gap-4">
           <div>
-            <div className="flex items-center gap-1.5 text-[#e5a93c] text-xs font-bold tracking-widest uppercase mb-1">
+            <div className="flex items-center gap-1.5 text-[#ee5f27] text-xs font-bold tracking-widest uppercase mb-1">
               <Camera className="w-3.5 h-3.5" />
               <span>VISUAL JOURNEY</span>
             </div>
@@ -24,7 +24,7 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onPhotoClick }) 
           </div>
 
           <div className="flex items-center gap-2 text-xs text-white/70">
-            <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-[#048310] animate-ping" />
             <span>Live Safari & Expedition Moments · Hover to Pause</span>
           </div>
         </div>
@@ -50,12 +50,12 @@ export const GallerySection: React.FC<GallerySectionProps> = ({ onPhotoClick }) 
 
               {/* Hover Zoom Icon */}
               <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-xs flex items-center justify-center text-white/80 opacity-0 group-hover:opacity-100 transition-opacity">
-                <ZoomIn className="w-4 h-4 text-[#e5a93c]" />
+                <ZoomIn className="w-4 h-4 text-[#ee5f27]" />
               </div>
 
               {/* Bottom Caption Box matching screenshot */}
               <div className="absolute bottom-3 left-3 right-3 text-left">
-                <span className="text-[10px] font-bold tracking-wider text-[#e5a93c] uppercase block">
+                <span className="text-[10px] font-bold tracking-wider text-[#ee5f27] uppercase block">
                   {photo.category}
                 </span>
                 <span className="text-sm font-bold text-white leading-tight block truncate">

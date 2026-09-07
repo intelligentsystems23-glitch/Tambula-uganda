@@ -32,7 +32,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
         {/* Header */}
         <div className="bg-[#0e2117] text-white p-6 rounded-t-2xl flex items-center justify-between border-b border-white/10">
           <div>
-            <div className="flex items-center gap-1.5 text-[#e5a93c] text-xs font-bold tracking-widest uppercase">
+            <div className="flex items-center gap-1.5 text-[#ee5f27] text-xs font-bold tracking-widest uppercase">
               <Plane className="w-3.5 h-3.5" />
               <span>AIR CONCIERGE &amp; GROUND TRANSFERS</span>
             </div>
@@ -58,7 +58,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
             onClick={() => setActiveTab('shuttle')}
             className={`py-3.5 border-b-2 transition-colors ${
               activeTab === 'shuttle'
-                ? 'border-[#bf7d1b] text-[#0e2117]'
+                ? 'border-[#ee5f27] text-[#0e2117]'
                 : 'border-transparent text-[#66746a] hover:text-[#0e2117]'
             }`}
           >
@@ -68,7 +68,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
             onClick={() => setActiveTab('bushflights')}
             className={`py-3.5 border-b-2 transition-colors ${
               activeTab === 'bushflights'
-                ? 'border-[#bf7d1b] text-[#0e2117]'
+                ? 'border-[#ee5f27] text-[#0e2117]'
                 : 'border-transparent text-[#66746a] hover:text-[#0e2117]'
             }`}
           >
@@ -80,7 +80,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
         <div className="p-6 sm:p-8 space-y-6">
           {booked ? (
             <div className="p-8 text-center space-y-3">
-              <div className="w-14 h-14 rounded-full bg-[#e8efe8] text-[#2e7d32] mx-auto flex items-center justify-center text-2xl">
+              <div className="w-14 h-14 rounded-full bg-[#e8efe8] text-[#048310] mx-auto flex items-center justify-center text-2xl">
                 ✓
               </div>
               <h3 className="font-display text-2xl font-bold text-[#102419]">
@@ -115,15 +115,15 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
                       onClick={() => setTransferType(v.type)}
                       className={`p-4 rounded-xl border text-left text-xs transition-all ${
                         transferType === v.type
-                          ? 'bg-[#f5ede0] border-[#bf7d1b] text-[#102419] shadow-xs'
+                          ? 'bg-[#fdf2ec] border-[#ee5f27] text-[#102419] shadow-xs'
                           : 'bg-white border-[#e0d6c8] text-[#4d5950] hover:bg-[#f8f5f0]'
                       }`}
                     >
                       <div className="font-bold text-sm text-[#102419] mb-1 flex items-center justify-between">
                         <span>{v.type}</span>
-                        {transferType === v.type && <Check className="w-4 h-4 text-[#bf7d1b]" />}
+                        {transferType === v.type && <Check className="w-4 h-4 text-[#ee5f27]" />}
                       </div>
-                      <div className="text-[11px] text-[#bf7d1b] font-semibold mb-1">
+                      <div className="text-[11px] text-[#ee5f27] font-semibold mb-1">
                         Capacity: {v.passengers}
                       </div>
                       <div className="text-[11px] text-[#637267] leading-tight">
@@ -150,7 +150,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
                       placeholder="e.g. EK 729"
                       value={flightNumber}
                       onChange={(e) => setFlightNumber(e.target.value)}
-                      className="w-full p-2.5 rounded-lg border border-[#d8cebe] bg-[#faf8f5] focus:outline-hidden focus:border-[#bf7d1b]"
+                      className="w-full p-2.5 rounded-lg border border-[#d8cebe] bg-[#faf8f5] focus:outline-hidden focus:border-[#ee5f27]"
                     />
                   </div>
 
@@ -163,7 +163,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
                       required
                       value={arrivalDate}
                       onChange={(e) => setArrivalDate(e.target.value)}
-                      className="w-full p-2.5 rounded-lg border border-[#d8cebe] bg-[#faf8f5] focus:outline-hidden focus:border-[#bf7d1b]"
+                      className="w-full p-2.5 rounded-lg border border-[#d8cebe] bg-[#faf8f5] focus:outline-hidden focus:border-[#ee5f27]"
                     />
                   </div>
 
@@ -176,7 +176,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
                       placeholder="e.g. 2 Adults, 3 Suitcases"
                       value={passengers}
                       onChange={(e) => setPassengers(e.target.value)}
-                      className="w-full p-2.5 rounded-lg border border-[#d8cebe] bg-[#faf8f5] focus:outline-hidden focus:border-[#bf7d1b]"
+                      className="w-full p-2.5 rounded-lg border border-[#d8cebe] bg-[#faf8f5] focus:outline-hidden focus:border-[#ee5f27]"
                     />
                   </div>
 
@@ -190,7 +190,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
                       placeholder="e.g. Serena Hotel Kampala or Lake Victoria Hotel Entebbe"
                       value={hotelDestination}
                       onChange={(e) => setHotelDestination(e.target.value)}
-                      className="w-full p-2.5 rounded-lg border border-[#d8cebe] bg-[#faf8f5] focus:outline-hidden focus:border-[#bf7d1b]"
+                      className="w-full p-2.5 rounded-lg border border-[#d8cebe] bg-[#faf8f5] focus:outline-hidden focus:border-[#ee5f27]"
                     />
                   </div>
                 </div>
@@ -215,7 +215,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
 
               <div className="bg-white rounded-xl border border-[#e4dbce] overflow-hidden">
                 <table className="w-full text-xs text-left">
-                  <thead className="bg-[#f5ede0] text-[#102419] font-bold border-b border-[#e4dbce]">
+                  <thead className="bg-[#fdf2ec] text-[#102419] font-bold border-b border-[#e4dbce]">
                     <tr>
                       <th className="p-3">Airstrip</th>
                       <th className="p-3">Serves National Park</th>
@@ -227,7 +227,7 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
                       <tr key={i} className="hover:bg-[#faf7f2]">
                         <td className="p-3 font-semibold text-[#102419]">{d.name}</td>
                         <td className="p-3 text-[#4c5a50]">{d.connects}</td>
-                        <td className="p-3 text-[#bf7d1b] font-medium">{d.flightTime}</td>
+                        <td className="p-3 text-[#ee5f27] font-medium">{d.flightTime}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -240,10 +240,10 @@ export const FlightConciergeModal: React.FC<FlightConciergeModalProps> = ({ isOp
                   <span className="text-[11px]">We charter Cessna Caravans &amp; Pilatus PC-12 for private parties.</span>
                 </div>
                 <a
-                  href="https://wa.me/17049409953"
+                  href="https://wa.me/256781674358"
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-[#1e4828] text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold"
+                  className="bg-[#048310] hover:bg-[#036e0d] text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors"
                 >
                   WhatsApp Flight Desk
                 </a>

@@ -22,7 +22,7 @@ export const TickerMarquee: React.FC = () => {
           <div key={index} className="inline-flex items-center mx-6 text-xs sm:text-sm font-semibold tracking-wide text-[#233528]">
             <span className="mr-2 text-base">{item.icon}</span>
             <span>{item.text}</span>
-            <span className="ml-6 text-[#bf7d1b]/70 font-bold">•</span>
+            <span className="ml-6 text-[#ee5f27]/70 font-bold">•</span>
           </div>
         ))}
       </div>

@@ -15,7 +15,7 @@ export const TestimonialsSection: React.FC = () => {
             Voices from the Trail
           </h2>
 
-          <p className="font-editorial italic text-xl sm:text-2xl text-[#bf7d1b]">
+          <p className="font-editorial italic text-xl sm:text-2xl text-[#ee5f27]">
             Unfiltered stories from travelers who walked with Tambula
           </p>
 
@@ -61,7 +61,7 @@ export const TestimonialsSection: React.FC = () => {
                   <div className="text-[11px] text-[#637267] truncate">
                     {item.location}
                   </div>
-                  <div className="text-[10px] font-medium text-[#bf7d1b] truncate mt-0.5">
+                  <div className="text-[10px] font-medium text-[#ee5f27] truncate mt-0.5">
                     • {item.safariType}
                   </div>
                 </div>

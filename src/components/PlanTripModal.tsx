@@ -72,7 +72,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
         {/* Modal Header */}
         <div className="bg-[#0e2117] text-white p-6 rounded-t-2xl flex items-center justify-between border-b border-white/10 relative">
           <div>
-            <div className="inline-flex items-center gap-1.5 text-[#e5a93c] text-[11px] font-bold tracking-widest uppercase">
+            <div className="inline-flex items-center gap-1.5 text-[#ee5f27] text-[11px] font-bold tracking-widest uppercase">
               <Sparkles className="w-3.5 h-3.5" />
               <span>CUSTOM SAFARI DESIGNER</span>
             </div>
@@ -96,7 +96,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
         {/* Modal Body */}
         {submitted ? (
           <div className="p-10 text-center space-y-4">
-            <div className="w-16 h-16 rounded-full bg-[#e8efe8] text-[#2e7d32] mx-auto flex items-center justify-center text-3xl">
+            <div className="w-16 h-16 rounded-full bg-[#e8efe8] text-[#048310] mx-auto flex items-center justify-center text-3xl">
               ✓
             </div>
             <h3 className="font-display text-2xl font-bold text-[#102419]">
@@ -112,7 +112,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
               <div className="font-semibold text-[#102419] mb-1">Estimated Journey Summary:</div>
               <div>• {travelers} Traveler(s) · {days} Days · {tier} Tier</div>
               <div>• Safari Style: {safariStyle.toUpperCase()}</div>
-              <div>• Indicative Range: <span className="font-bold text-[#bf7d1b]">{formatPrice(totalEstimateUSD, currency)}</span> ({formatPrice(estimatedPerPersonUSD, currency)} / person)</div>
+              <div>• Indicative Range: <span className="font-bold text-[#ee5f27]">{formatPrice(totalEstimateUSD, currency)}</span> ({formatPrice(estimatedPerPersonUSD, currency)} / person)</div>
             </div>
             <button
               onClick={() => {
@@ -146,7 +146,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                       }`}
                     >
                       <span>{opt}</span>
-                      {isChecked && <Check className="w-4 h-4 text-[#e5a93c]" />}
+                      {isChecked && <Check className="w-4 h-4 text-[#ee5f27]" />}
                     </button>
                   );
                 })}
@@ -170,7 +170,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                       key={s.id}
                       className={`flex items-center gap-3 p-2.5 rounded-lg border text-xs cursor-pointer transition-colors ${
                         safariStyle === s.id
-                          ? 'bg-[#f4eee5] border-[#bf7d1b] text-[#102419] font-semibold'
+                          ? 'bg-[#fdf2ec] border-[#ee5f27] text-[#102419] font-semibold'
                           : 'bg-white border-[#e3dacf] text-[#4d5950]'
                       }`}
                     >
@@ -179,7 +179,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                         name="safariStyle"
                         checked={safariStyle === s.id}
                         onChange={() => setSafariStyle(s.id as any)}
-                        className="text-[#bf7d1b] focus:ring-[#bf7d1b]"
+                        className="text-[#ee5f27] focus:ring-[#ee5f27]"
                       />
                       <span>{s.label}</span>
                     </label>
@@ -201,7 +201,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                       key={lvl.id}
                       className={`block p-2.5 rounded-lg border text-xs cursor-pointer transition-colors ${
                         tier === lvl.id
-                          ? 'bg-[#f4eee5] border-[#bf7d1b] text-[#102419]'
+                          ? 'bg-[#fdf2ec] border-[#ee5f27] text-[#102419]'
                           : 'bg-white border-[#e3dacf] text-[#4d5950]'
                       }`}
                     >
@@ -211,7 +211,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                           name="lodgingTier"
                           checked={tier === lvl.id}
                           onChange={() => setTier(lvl.id as any)}
-                          className="text-[#bf7d1b] focus:ring-[#bf7d1b]"
+                          className="text-[#ee5f27] focus:ring-[#ee5f27]"
                         />
                         <span className="font-semibold text-[#102419]">{lvl.title}</span>
                       </div>
@@ -226,7 +226,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
             <div className="bg-white p-4 rounded-xl border border-[#e2d8ca] grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
                 <label className="block text-xs font-semibold text-[#102419] mb-1">
-                  Travelers: <span className="text-[#bf7d1b] font-bold">{travelers}</span>
+                  Travelers: <span className="text-[#ee5f27] font-bold">{travelers}</span>
                 </label>
                 <input
                   type="range"
@@ -234,13 +234,13 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                   max="12"
                   value={travelers}
                   onChange={(e) => setTravelers(Number(e.target.value))}
-                  className="w-full accent-[#bf7d1b]"
+                  className="w-full accent-[#ee5f27]"
                 />
               </div>
 
               <div>
                 <label className="block text-xs font-semibold text-[#102419] mb-1">
-                  Duration: <span className="text-[#bf7d1b] font-bold">{days} Days</span>
+                  Duration: <span className="text-[#ee5f27] font-bold">{days} Days</span>
                 </label>
                 <input
                   type="range"
@@ -248,7 +248,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                   max="21"
                   value={days}
                   onChange={(e) => setDays(Number(e.target.value))}
-                  className="w-full accent-[#bf7d1b]"
+                  className="w-full accent-[#ee5f27]"
                 />
               </div>
 
@@ -258,7 +258,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                     type="checkbox"
                     checked={needsFlights}
                     onChange={(e) => setNeedsFlights(e.target.checked)}
-                    className="rounded text-[#bf7d1b] focus:ring-[#bf7d1b] w-4 h-4"
+                    className="rounded text-[#ee5f27] focus:ring-[#ee5f27] w-4 h-4"
                   />
                   <span>Include Airport &amp; Bush Flights</span>
                 </label>
@@ -268,7 +268,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
             {/* Price Preview Banner */}
             <div className="bg-[#12281c] text-white p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 border border-white/10">
               <div>
-                <span className="text-[11px] text-[#e5a93c] font-bold uppercase tracking-wider block">
+                <span className="text-[11px] text-[#ee5f27] font-bold uppercase tracking-wider block">
                   INDICATIVE QUOTE ESTIMATE
                 </span>
                 <span className="text-2xl font-bold font-display text-white">
@@ -295,7 +295,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                   placeholder="Full Name *"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="p-3 rounded-lg border border-[#ded5c6] bg-white text-xs text-[#1c241e] focus:outline-hidden focus:border-[#bf7d1b]"
+                  className="p-3 rounded-lg border border-[#ded5c6] bg-white text-xs text-[#1c241e] focus:outline-hidden focus:border-[#ee5f27]"
                 />
                 <input
                   type="email"
@@ -303,14 +303,14 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                   placeholder="Email Address *"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="p-3 rounded-lg border border-[#ded5c6] bg-white text-xs text-[#1c241e] focus:outline-hidden focus:border-[#bf7d1b]"
+                  className="p-3 rounded-lg border border-[#ded5c6] bg-white text-xs text-[#1c241e] focus:outline-hidden focus:border-[#ee5f27]"
                 />
                 <input
                   type="tel"
                   placeholder="Phone / WhatsApp"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="p-3 rounded-lg border border-[#ded5c6] bg-white text-xs text-[#1c241e] focus:outline-hidden focus:border-[#bf7d1b]"
+                  className="p-3 rounded-lg border border-[#ded5c6] bg-white text-xs text-[#1c241e] focus:outline-hidden focus:border-[#ee5f27]"
                 />
               </div>
               <textarea
@@ -318,7 +318,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
                 placeholder="Specific animal sightings, dates, dietary requirements, or special milestones..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full p-3 rounded-lg border border-[#ded5c6] bg-white text-xs text-[#1c241e] focus:outline-hidden focus:border-[#bf7d1b]"
+                className="w-full p-3 rounded-lg border border-[#ded5c6] bg-white text-xs text-[#1c241e] focus:outline-hidden focus:border-[#ee5f27]"
               />
             </div>
 
@@ -335,7 +335,7 @@ export const PlanTripModal: React.FC<PlanTripModalProps> = ({
               <button
                 type="submit"
                 id="btn-submit-safari-proposal"
-                className="inline-flex items-center gap-2 bg-[#bf7d1b] hover:bg-[#a46611] text-white px-7 py-3 rounded-xl text-xs font-bold tracking-wide shadow-md transition-all active:scale-98"
+                className="inline-flex items-center gap-2 bg-[#ee5f27] hover:bg-[#d64e18] text-white px-7 py-3 rounded-xl text-xs font-bold tracking-wide shadow-md transition-all active:scale-98"
               >
                 <Send className="w-3.5 h-3.5" />
                 <span>Request Detailed Safari Proposal</span>
