@@ -1,32 +1,34 @@
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X as CloseIcon, Facebook, Instagram, Youtube } from 'lucide-react';
 
 interface NavbarProps {
-  onPlanTripClick: () => void;
-  activeSection: string;
+  onPlanTripClick?: () => void;
+  activePage: string;
+  onNavigatePage: (pageId: string) => void;
 }
 
-export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }) => {
+export const Navbar: React.FC<NavbarProps> = ({ 
+  onPlanTripClick, 
+  activePage, 
+  onNavigatePage 
+}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navLinks = [
-    { label: 'Home', href: '#home' },
-    { label: 'Our Services', href: '#services' },
-    { label: 'Our Genesis', href: '#genesis' },
-    { label: 'Destinations', href: '#destinations' },
-    { label: 'Gallery', href: '#gallery' },
-    { label: 'Testimonials', href: '#testimonials' },
-    { label: 'Conservation', href: '#conservation' },
-    { label: 'Contact', href: '#contact' },
+    { id: 'home', label: 'Home', href: '#home' },
+    { id: 'group-trips', label: 'Group Trips', href: '#group-trips', badge: 'Hot' },
+    { id: 'services', label: 'Our Services', href: '#services' },
+    { id: 'genesis', label: 'Our Genesis', href: '#genesis' },
+    { id: 'destinations', label: 'Destinations', href: '#destinations' },
+    { id: 'contact', label: 'Contact', href: '#contact' },
   ];
 
-  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleLinkClick = (e: React.MouseEvent, pageId: string) => {
     e.preventDefault();
     setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    onNavigatePage(pageId);
+    window.location.hash = pageId;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -34,10 +36,10 @@ export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Brand Logo */}
-          <a
+          <button
             id="brand-logo-link"
-            href="#home"
-            className="flex items-center gap-3 group"
+            onClick={(e) => handleLinkClick(e, 'home')}
+            className="flex items-center gap-3 group text-left cursor-pointer"
           >
             {/* Logo Emblem */}
             <div className="w-10 h-10 rounded-full bg-[#122b1e] flex items-center justify-center text-white shadow-xs group-hover:scale-105 transition-transform">
@@ -58,105 +60,95 @@ export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }
               <span className="font-display text-2xl font-bold tracking-tight text-[#0f2418] leading-none">
                 TAMBULA
               </span>
-              <span className="font-editorial italic text-xs tracking-wider text-[#ee5f27] font-medium mt-0.5">
+              <span className="italic text-xs tracking-wider text-[#ee5f27] font-medium mt-0.5">
                 Uganda Tours and Travel
               </span>
             </div>
-          </a>
+          </button>
 
           {/* Desktop Navigation Links */}
           <div className="hidden xl:flex items-center space-x-7">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href.substring(1);
+              const isActive = activePage === link.id;
               return (
-                <a
-                  key={link.label}
-                  id={`nav-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}
-                  href={link.href}
-                  onClick={(e) => handleScrollTo(e, link.href)}
-                  className={`text-sm font-medium transition-colors relative py-1 ${
+                <button
+                  key={link.id}
+                  id={`nav-link-${link.id}`}
+                  onClick={(e) => handleLinkClick(e, link.id)}
+                  className={`text-sm font-medium transition-colors relative py-1 inline-flex items-center gap-1.5 cursor-pointer ${
                     isActive
                       ? 'text-[#0f2418] font-semibold'
                       : 'text-[#475249] hover:text-[#0f2418]'
                   }`}
                 >
-                  {link.label}
+                  <span>{link.label}</span>
+                  {link.badge && (
+                    <span className="text-[9px] uppercase font-extrabold bg-[#ee5f27] text-white px-1.5 py-0.5 rounded-full leading-none">
+                      {link.badge}
+                    </span>
+                  )}
                   {isActive && (
                     <span className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-0.5 bg-[#ee5f27] rounded-full" />
                   )}
-                </a>
+                </button>
               );
             })}
           </div>
 
-          {/* Right Action & Socials */}
-          <div className="hidden md:flex items-center space-x-4">
-            {/* Social Icons matching screenshot */}
-            <div className="flex items-center space-x-2.5 text-[#556358] border-r border-[#e3dbce] pr-4">
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Facebook"
-                className="w-7 h-7 rounded-full hover:bg-[#f1ede6] flex items-center justify-center transition-colors hover:text-[#0f2418]"
-              >
-                <span className="text-xs font-semibold">f</span>
-              </a>
-              <a
-                href="https://x.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="X (Twitter)"
-                className="w-7 h-7 rounded-full hover:bg-[#f1ede6] flex items-center justify-center transition-colors hover:text-[#0f2418]"
-              >
-                <span className="text-xs font-semibold">𝕏</span>
-              </a>
-              <a
-                href="https://wa.me/256781674358"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="WhatsApp"
-                className="w-7 h-7 rounded-full hover:bg-[#f1ede6] flex items-center justify-center transition-colors hover:text-[#048310]"
-              >
-                <span className="text-xs font-semibold">💬</span>
-              </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram"
-                className="w-7 h-7 rounded-full hover:bg-[#f1ede6] flex items-center justify-center transition-colors hover:text-[#0f2418]"
-              >
-                <span className="text-xs font-semibold">📷</span>
-              </a>
-            </div>
-
-            {/* Plan Your Trip CTA */}
-            <button
-              id="navbar-plan-trip-button"
-              onClick={onPlanTripClick}
-              className="bg-[#0e2117] text-white hover:bg-[#1a3828] px-5 py-2.5 rounded-lg text-xs font-semibold tracking-wide transition-all shadow-sm active:scale-98"
+          {/* Right Action: Black circular social icons matching design */}
+          <div className="hidden md:flex items-center space-x-3">
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook"
+              className="w-8 h-8 rounded-full bg-black hover:bg-[#222222] text-white flex items-center justify-center transition-all hover:scale-105 shadow-xs"
             >
-              Plan Your Trip
-            </button>
+              <Facebook className="w-4 h-4 fill-white text-white" />
+            </a>
+
+            <a
+              href="https://x.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="X"
+              className="w-8 h-8 rounded-full bg-black hover:bg-[#222222] text-white flex items-center justify-center transition-all hover:scale-105 shadow-xs"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" className="w-3.5 h-3.5 fill-white">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
+            </a>
+
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="w-8 h-8 rounded-full bg-black hover:bg-[#222222] text-white flex items-center justify-center transition-all hover:scale-105 shadow-xs"
+            >
+              <Instagram className="w-4 h-4 text-white" />
+            </a>
+
+            <a
+              href="https://youtube.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="YouTube"
+              className="w-8 h-8 rounded-full bg-black hover:bg-[#222222] text-white flex items-center justify-center transition-all hover:scale-105 shadow-xs"
+            >
+              <Youtube className="w-4 h-4 fill-white text-white" />
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-2">
-            <button
-              id="mobile-plan-trip-cta"
-              onClick={onPlanTripClick}
-              className="bg-[#0e2117] text-white px-3 py-1.5 rounded-md text-xs font-medium"
-            >
-              Plan Trip
-            </button>
+          <div className="flex md:hidden items-center">
             <button
               id="mobile-nav-toggle-button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-md text-[#0e2117] hover:bg-[#f4efe8]"
               aria-label="Toggle navigation"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <CloseIcon className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
@@ -164,37 +156,84 @@ export const Navbar: React.FC<NavbarProps> = ({ onPlanTripClick, activeSection }
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-[#e7e1d7] px-4 pt-2 pb-6 space-y-3">
+        <div className="md:hidden bg-white border-b border-[#e7e1d7] px-4 pt-2 pb-6 space-y-4">
           <div className="flex flex-col space-y-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={(e) => handleScrollTo(e, link.href)}
-                className="text-sm font-medium text-[#2d372f] hover:text-[#ee5f27] py-1.5"
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = activePage === link.id;
+              return (
+                <button
+                  key={link.id}
+                  onClick={(e) => handleLinkClick(e, link.id)}
+                  className={`text-sm font-medium py-2 px-3 rounded-lg flex items-center justify-between text-left cursor-pointer transition-colors ${
+                    isActive
+                      ? 'bg-[#0e2117] text-white font-semibold'
+                      : 'text-[#2d372f] hover:bg-[#faf7f2] hover:text-[#ee5f27]'
+                  }`}
+                >
+                  <span>{link.label}</span>
+                  {link.badge && (
+                    <span className="text-[10px] font-bold bg-[#ee5f27] text-white px-2 py-0.5 rounded-full">
+                      {link.badge}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
 
           <div className="pt-4 border-t border-[#ece4d8] flex items-center justify-between">
-            <div className="flex space-x-3 text-sm text-[#4d5a50]">
-              <a href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a>
-              <span>·</span>
-              <a href="https://x.com" target="_blank" rel="noreferrer">𝕏</a>
-              <span>·</span>
-              <a href="https://wa.me/256781674358" target="_blank" rel="noreferrer">WhatsApp</a>
+            <div className="flex space-x-2.5 items-center">
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+                className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center"
+              >
+                <Facebook className="w-3.5 h-3.5 fill-white text-white" />
+              </a>
+              <a
+                href="https://x.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="X"
+                className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" className="w-3 h-3 fill-white">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center"
+              >
+                <Instagram className="w-3.5 h-3.5 text-white" />
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="YouTube"
+                className="w-7 h-7 rounded-full bg-black text-white flex items-center justify-center"
+              >
+                <Youtube className="w-3.5 h-3.5 fill-white text-white" />
+              </a>
             </div>
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onPlanTripClick();
-              }}
-              className="bg-[#ee5f27] hover:bg-[#d64e18] text-white px-4 py-1.5 rounded-md text-xs font-semibold"
-            >
-              Custom Safari Quote
-            </button>
+
+            {onPlanTripClick && (
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onPlanTripClick();
+                }}
+                className="bg-[#ee5f27] hover:bg-[#d64e18] text-white px-4 py-1.5 rounded-md text-xs font-semibold"
+              >
+                Safari Inquiry
+              </button>
+            )}
           </div>
         </div>
       )}

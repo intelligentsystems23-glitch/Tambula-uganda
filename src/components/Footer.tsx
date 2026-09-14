@@ -6,6 +6,7 @@ interface FooterProps {
   onViewGroupDepartures: () => void;
   onSelectDestinationById: (destId: string) => void;
   onBookFlightServices: () => void;
+  onNavigatePage?: (pageId: string) => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -13,7 +14,15 @@ export const Footer: React.FC<FooterProps> = ({
   onViewGroupDepartures,
   onSelectDestinationById,
   onBookFlightServices,
+  onNavigatePage,
 }) => {
+  const handleNav = (pageId: string) => {
+    if (onNavigatePage) {
+      onNavigatePage(pageId);
+      window.location.hash = pageId;
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
   return (
     <footer id="contact" className="bg-[#07130b] text-white/80 pt-16 pb-10 border-t border-white/10 text-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -35,14 +44,17 @@ export const Footer: React.FC<FooterProps> = ({
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                 </svg>
               </div>
-              <div>
-                <span className="font-display font-bold text-lg text-white block leading-none">
+              <button
+                onClick={() => handleNav('home')}
+                className="text-left cursor-pointer"
+              >
+                <span className="font-bold text-lg text-white block leading-none">
                   TAMBULA
                 </span>
-                <span className="font-editorial italic text-xs text-[#ee5f27]">
+                <span className="italic text-xs text-[#ee5f27]">
                   Uganda Tours and Travel
                 </span>
-              </div>
+              </button>
             </div>
 
             <p className="text-white/70 leading-relaxed text-xs max-w-sm">
@@ -100,16 +112,16 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-2 text-white/70">
               <li>
                 <button
-                  onClick={onViewGroupDepartures}
-                  className="hover:text-[#ee5f27] transition-colors text-left"
+                  onClick={() => handleNav('group-trips')}
+                  className="hover:text-[#ee5f27] transition-colors text-left cursor-pointer"
                 >
                   Group Safari Departures
                 </button>
               </li>
               <li>
                 <button
-                  onClick={onPlanTripClick}
-                  className="text-[#ee5f27] hover:underline font-medium text-left flex items-center gap-1"
+                  onClick={() => handleNav('services')}
+                  className="text-[#ee5f27] hover:underline font-medium text-left flex items-center gap-1 cursor-pointer"
                 >
                   <span>★</span>
                   <span>Solo & Private Tailored Safaris</span>
@@ -117,26 +129,26 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
-                  onClick={onBookFlightServices}
-                  className="hover:text-[#ee5f27] transition-colors text-left"
+                  onClick={() => handleNav('services')}
+                  className="hover:text-[#ee5f27] transition-colors text-left cursor-pointer"
                 >
-                  Entebbe Airport (EBB) Pickups
+                  Fleet &amp; 4x4 Cruiser Rentals
                 </button>
               </li>
               <li>
                 <button
-                  onClick={onBookFlightServices}
-                  className="hover:text-[#ee5f27] transition-colors text-left"
+                  onClick={() => handleNav('genesis')}
+                  className="hover:text-[#ee5f27] transition-colors text-left cursor-pointer"
                 >
-                  Domestic Bush Flight Bookings
+                  Our Genesis &amp; Conservation Roots
                 </button>
               </li>
               <li>
                 <button
-                  onClick={onBookFlightServices}
-                  className="hover:text-[#ee5f27] transition-colors text-left"
+                  onClick={() => handleNav('contact')}
+                  className="hover:text-[#ee5f27] transition-colors text-left cursor-pointer"
                 >
-                  International Flight Ticketing
+                  Airport Transfers &amp; Concierge
                 </button>
               </li>
             </ul>
@@ -149,12 +161,12 @@ export const Footer: React.FC<FooterProps> = ({
             </h4>
             <ul className="space-y-2 text-white/70">
               <li>
-                <a
-                  href="#home"
-                  className="hover:text-[#ee5f27] transition-colors block"
+                <button
+                  onClick={() => handleNav('destinations')}
+                  className="hover:text-[#ee5f27] transition-colors text-left cursor-pointer"
                 >
-                  Uganda Gorilla & Wildlife
-                </a>
+                  Uganda Gorilla &amp; Wildlife
+                </button>
               </li>
               <li>
                 <button
@@ -208,11 +220,11 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <a
-                  href="mailto:okellopius971@gmail.com"
+                  href="mailto:info@tambulaugandatours.com"
                   className="flex items-center gap-2 hover:text-[#ee5f27] transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 text-[#ee5f27]" />
-                  <span>okellopius971@gmail.com</span>
+                  <span>info@tambulaugandatours.com</span>
                 </a>
               </li>
               <li>
@@ -239,6 +251,13 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
           <div className="flex items-center space-x-4">
+            <button
+              onClick={() => handleNav('admin')}
+              className="text-white/70 hover:text-[#ee5f27] transition-colors flex items-center gap-1 font-medium"
+            >
+              <span>CMS /admin</span>
+            </button>
+            <span>·</span>
             <a href="#home" className="hover:text-white transition-colors">
               Privacy Policy
             </a>

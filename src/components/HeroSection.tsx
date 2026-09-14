@@ -39,12 +39,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
             {/* Main Headline */}
             <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.65rem] font-bold text-[#102318] leading-[1.1] tracking-tight">
-              Discover Africa’s wonders.
+              Feel the Beauty of Uganda.
               <br />
               <span className="font-editorial italic font-normal text-[#ee5f27]">
                 Journey
               </span>{' '}
-              beyond borders.
+              Beyond Borders.
             </h1>
 
             {/* Subtitle Description */}
