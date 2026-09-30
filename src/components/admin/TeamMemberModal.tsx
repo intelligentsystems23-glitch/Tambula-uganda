@@ -18,7 +18,7 @@ interface TeamMemberModalProps {
   isOpen: boolean;
   member: TeamMember | null; // null means Add New
   onClose: () => void;
-  onSave: (member: TeamMember) => void;
+  onSave: (member: TeamMember) => void | Promise<void>;
 }
 
 const GUIDE_IMAGE_PRESETS = [
@@ -73,6 +73,7 @@ export const TeamMemberModal: React.FC<TeamMemberModalProps> = ({
   const [languagesInput, setLanguagesInput] = useState('');
   const [certificationsInput, setCertificationsInput] = useState('');
   const [validationError, setValidationError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Profile picture upload states
   const [photoSourceTab, setPhotoSourceTab] = useState<'upload' | 'preset' | 'url'>('upload');
@@ -196,7 +197,7 @@ export const TeamMemberModal: React.FC<TeamMemberModalProps> = ({
   if (!isOpen) return null;
 
   // Submission validation
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.name.trim()) {
@@ -251,8 +252,17 @@ export const TeamMemberModal: React.FC<TeamMemberModalProps> = ({
       },
     };
 
-    onSave(cleanedMember);
-    onClose();
+    try {
+      setIsSubmitting(true);
+      setValidationError(null);
+      await onSave(cleanedMember);
+      onClose();
+    } catch (err) {
+      console.error('Failed to save team member in modal:', err);
+      setValidationError(err instanceof Error ? err.message : 'Failed to save changes. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -670,9 +680,11 @@ export const TeamMemberModal: React.FC<TeamMemberModalProps> = ({
             </button>
             <button
               type="submit"
-              className="px-5 py-2 text-xs font-bold bg-[#048310] hover:bg-[#036a0d] text-white rounded-xl shadow-xs transition-colors cursor-pointer"
+              disabled={isSubmitting || isProcessingPhoto}
+              className="px-5 py-2 text-xs font-bold bg-[#048310] hover:bg-[#036a0d] disabled:opacity-50 text-white rounded-xl shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
             >
-              {member ? 'Save Changes' : 'Add Team Member'}
+              {isSubmitting && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
+              <span>{isSubmitting ? 'Saving Changes...' : member ? 'Save Changes' : 'Add Team Member'}</span>
             </button>
           </div>
         </form>
