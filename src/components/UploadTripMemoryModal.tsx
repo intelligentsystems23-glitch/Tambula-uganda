@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { X, Upload, Image, Film, Sparkles, Check, AlertCircle } from 'lucide-react';
+import { X, Upload, Image, Film, Sparkles, Check, AlertCircle, Loader2 } from 'lucide-react';
 import { FormerTrip } from '../types';
+import { optimizeImageFile } from '../utils/imageUpload';
 
 interface UploadTripMemoryModalProps {
   isOpen: boolean;
@@ -25,20 +26,25 @@ export const UploadTripMemoryModal: React.FC<UploadTripMemoryModalProps> = ({
   const [videoTitle, setVideoTitle] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isOpen) return null;
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreviewImage(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      try {
+        setIsProcessing(true);
+        const opt = await optimizeImageFile(file, 900, 0.82);
+        setPreviewImage(opt.dataUrl);
+      } catch (err) {
+        console.error('Error optimizing uploaded trip memory:', err);
+      } finally {
+        setIsProcessing(false);
+      }
     }
   };
 

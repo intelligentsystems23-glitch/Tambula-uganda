@@ -62,10 +62,22 @@ function AppContent() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
+  const [adminInitialTab, setAdminInitialTab] = useState<'group-departures' | 'destinations' | 'team' | 'uploads' | 'overview'>('group-departures');
+
   // Navigation action that opens newly at top
   const handleNavigatePage = (pageId: string) => {
+    if (pageId === 'admin-team') {
+      setAdminInitialTab('team');
+      setActivePage('admin');
+      window.location.hash = 'admin';
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return;
+    }
     const validPages: PageId[] = ['home', 'group-trips', 'services', 'genesis', 'destinations', 'contact', 'admin'];
     const targetPage = validPages.includes(pageId as PageId) ? (pageId as PageId) : 'home';
+    if (targetPage === 'admin') {
+      setAdminInitialTab('group-departures');
+    }
     setActivePage(targetPage);
     window.location.hash = targetPage;
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -193,6 +205,7 @@ function AppContent() {
             currency={currentCurrencyConfig}
             onNavigatePage={handleNavigatePage}
             onSelectDestination={handleOpenItinerary}
+            initialTab={adminInitialTab}
           />
         )}
       </main>

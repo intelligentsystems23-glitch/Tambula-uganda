@@ -30,7 +30,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentCurrency, onCurrencyChang
   }, [currencyDropdownOpen]);
 
   return (
-    <header className="bg-[#0e2117] text-white/85 text-xs border-b border-white/10 relative z-50">
+    <header className="bg-[#0e2117] text-white/85 text-xs sm:text-[13px] border-b border-white/10 relative z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between gap-3 sm:gap-4 whitespace-nowrap overflow-visible">
         {/* Left Contact & Regions */}
         <div className="flex items-center gap-x-3 sm:gap-x-4 shrink min-w-0 overflow-x-auto no-scrollbar">
@@ -56,7 +56,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentCurrency, onCurrencyChang
             <span className="md:hidden">Email Us</span>
           </a>
 
-          <div className="hidden xl:flex items-center gap-1.5 text-white/65 shrink truncate">
+          <div className="hidden xl:flex items-center gap-1.5 text-white/70 shrink truncate font-medium">
             <Compass className="w-3.5 h-3.5 text-[#a3b899] shrink-0" />
             <span className="truncate">Uganda · Kenya · Tanzania · Zanzibar · Dubai · Rwanda</span>
           </div>
@@ -64,7 +64,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentCurrency, onCurrencyChang
 
         {/* Right Certification & Currency Switcher */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-          <div className="hidden lg:flex items-center gap-1 text-[#ee5f27] font-medium shrink-0">
+          <div className="hidden lg:flex items-center gap-1.5 text-[#ee5f27] font-semibold shrink-0">
             <Award className="w-3.5 h-3.5 text-[#ee5f27] shrink-0" />
             <span className="hidden xl:inline">Certified Tour Operator &amp; Air Concierge</span>
             <span className="xl:hidden">Certified Operator</span>
@@ -74,7 +74,7 @@ export const TopBar: React.FC<TopBarProps> = ({ currentCurrency, onCurrencyChang
             <button
               id="currency-selector-button"
               onClick={() => setCurrencyDropdownOpen(!currencyDropdownOpen)}
-              className="flex items-center gap-1 sm:gap-1.5 bg-white/10 hover:bg-white/15 px-2 py-1 sm:px-2.5 sm:py-1 rounded text-white text-xs transition-colors shrink-0 cursor-pointer shadow-xs"
+              className="flex items-center gap-1 sm:gap-1.5 bg-white/10 hover:bg-white/15 px-2.5 py-1 rounded text-white text-xs sm:text-[13px] font-medium transition-colors shrink-0 cursor-pointer shadow-xs"
               aria-expanded={currencyDropdownOpen}
               aria-haspopup="listbox"
             >

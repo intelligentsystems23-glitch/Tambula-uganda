@@ -1,4 +1,4 @@
-import { CurrencyCode, CurrencyConfig, DestinationItinerary, FormerTrip, GalleryPhoto, GroupDeparture, TestimonialItem } from '../types';
+import { CurrencyCode, CurrencyConfig, DestinationItinerary, FormerTrip, GalleryPhoto, GroupDeparture, TestimonialItem, TeamMember, HeroSlide } from '../types';
 
 export const CURRENCIES: Record<CurrencyCode, CurrencyConfig> = {
   USD: { code: 'USD', symbol: '$', rateFromUSD: 1, flag: '🇺🇸' },
@@ -9,7 +9,7 @@ export const CURRENCIES: Record<CurrencyCode, CurrencyConfig> = {
   AED: { code: 'AED', symbol: 'AED ', rateFromUSD: 3.67, flag: '🇦🇪' },
 };
 
-export const HERO_SLIDES = [
+export const HERO_SLIDES: HeroSlide[] = [
   {
     id: 'silverback-bwindi',
     regionTag: 'ANCIENT CLOUD FOREST',
@@ -19,6 +19,7 @@ export const HERO_SLIDES = [
     imageUrl: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&w=1400&q=85',
     subCaption: 'Bwindi Impenetrable National Park',
     fact: 'Home to over half of the world’s remaining endangered mountain gorillas, sheltered under dense primary equatorial mist.',
+    order: 1,
   },
   {
     id: 'ishasha-lions',
@@ -26,9 +27,10 @@ export const HERO_SLIDES = [
     title: 'Tree-Climbing Lions of Ishasha',
     location: 'Queen Elizabeth National Park',
     countryTag: 'Ishasha Sector',
-    imageUrl: 'https://images.unsplash.com/photo-1614027164847-1b28caa1440f?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://images.unsplash.com/photo-1534188753412-3e26d0d618d6?auto=format&fit=crop&w=1400&q=85',
     subCaption: 'Queen Elizabeth National Park',
     fact: 'One of only two distinct populations on Earth known for resting gracefully in towering sycamore fig and acacia branches.',
+    order: 2,
   },
   {
     id: 'murchison-nile',
@@ -36,9 +38,21 @@ export const HERO_SLIDES = [
     title: 'Murchison Falls Savanna Herds',
     location: 'Murchison Falls National Park',
     countryTag: 'Victoria Nile',
-    imageUrl: 'https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?auto=format&fit=crop&w=1400&q=85',
+    imageUrl: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=1400&q=85',
     subCaption: 'Murchison Falls National Park',
     fact: 'Where the world’s longest river violently surges through a 7-meter gorge before nourishing dense herds of elephants and buffalo.',
+    order: 3,
+  },
+  {
+    id: 'kibale-chimps',
+    regionTag: 'PRIMATE CAPITAL OF THE WORLD',
+    title: 'Kibale Rainforest Chimpanzees',
+    location: 'Kibale Forest National Park',
+    countryTag: 'Kibale Forest',
+    imageUrl: 'https://images.unsplash.com/photo-1540573133985-87b6da6d54a9?auto=format&fit=crop&w=1400&q=85',
+    subCaption: 'Kibale Forest National Park',
+    fact: 'Highest density and diversity of wild primates in Africa, echoing with the thrilling pant-hoots of habituated chimpanzee troops.',
+    order: 4,
   },
 ];
 
@@ -960,3 +974,81 @@ export const FLIGHT_SERVICES_INFO = {
     { type: 'Toyota HiAce Safari Minivan', passengers: '4-8 Pax', features: 'Comfortable high roof, luggage space, dual AC' }
   ]
 };
+
+export const DEFAULT_TEAM_MEMBERS: TeamMember[] = [
+  {
+    id: 'directorate',
+    name: 'Expedition Directorate',
+    role: 'Head of Safari Operations & Field Guiding',
+    years: '12+ Years Guiding',
+    specialty: 'Primate Tracking, Savannah Big Cats & Cultural Heritage',
+    bio: 'Grounded in Western Uganda within sight of the Rwenzori foothills, our expedition leaders grew up with a deep reverence for wildlife corridors, coordinating over 350 successful gorilla treks and savannah safaris across Uganda and Rwanda.',
+    fullBio: 'Born and raised along the misty slopes near the Rwenzori Mountains and Queen Elizabeth National Park, our Expedition Directorate heads all safari operations at Tambula Uganda. With over a decade of continuous field leadership, they have pioneered ethical wildlife viewing protocols for mountain gorillas in Bwindi Impenetrable Forest and habituated chimpanzee clans in Kibale. Their deep grassroots connection with Uganda Wildlife Authority (UWA) park rangers and indigenous village elders ensures every safari has unprecedented access to remote wilderness areas while directly supporting local community health and education.',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
+    languages: ['English', 'Luganda', 'Swahili', 'Runyakitara'],
+    region: 'Bwindi Impenetrable, Kibale & Queen Elizabeth',
+    certifications: [
+      'USAGA Senior Guide Level 1 & 2',
+      'UWA Advanced Primate Tracking Permit',
+      'Wilderness First Responder (WFR)',
+      'East Africa Field Safety Certified'
+    ],
+    notableExpeditions: '380+ Mountain Gorilla treks guided with 100% sighting success; coordinated prime-season cross-border treks across Uganda, Rwanda, and the Serengeti.',
+    socials: {
+      facebook: 'https://facebook.com/tambula.uganda',
+      x: 'https://x.com/tambulasafaris',
+      instagram: 'https://instagram.com/tambula_uganda',
+      linkedin: 'https://linkedin.com/company/tambula-uganda'
+    }
+  },
+  {
+    id: 'sarah',
+    name: 'Sarah Namubiru',
+    role: 'Senior Naturalist & Ornithology Specialist',
+    years: '9 Years Guiding',
+    specialty: 'Albertine Endemics, Shoebill Stork Tracking & Eco-Lodge Logistics',
+    bio: 'One of Uganda’s premier female naturalist guides, Sarah holds degrees in Wildlife Management and can identify over 700 bird species by call alone.',
+    fullBio: "Sarah is celebrated across East Africa as one of Uganda's leading female professional birders and wilderness guides. Holding an honors degree in Wildlife Ecology & Tourism from Makerere University, she combines academic rigor with an intuitive instinct for animal behavior. Whether navigating the papyrus marshes of Mabamba Swamp in search of the elusive Shoebill Stork or discerning the subtle whistle of an Albertine Rift endemic at 2,400 meters elevation in the Rwenzoris, Sarah transforms every game drive and bushwalk into a masterclass in biodiversity conservation.",
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
+    languages: ['English', 'Luganda', 'Swahili', 'French (Conversational)'],
+    region: 'Mabamba Wetland, Semuliki & Albertine Rift Corridors',
+    certifications: [
+      'USAGA Ornithology Specialist Star',
+      'Makerere University B.Sc. Wildlife Conservation',
+      'IUCN Wetland Habitat Ambassador',
+      'Eco-Tourism Certified Field Naturalist'
+    ],
+    notableExpeditions: "Documented 682 avian species across 14 expeditions; pioneer mentor in the 'Women In Safari Guiding' initiative in East Africa.",
+    socials: {
+      facebook: 'https://facebook.com/sarah.namubiru.guide',
+      x: 'https://x.com/sarah_ornithology',
+      instagram: 'https://instagram.com/sarah_uganda_wild',
+      linkedin: 'https://linkedin.com/in/sarah-namubiru-wildlife'
+    }
+  },
+  {
+    id: 'david',
+    name: 'David Mukasa',
+    role: 'Head of Fleet & Bush 4x4 Expedition Mechanics',
+    years: '15 Years Experience',
+    specialty: 'Off-Road Navigation, Bush Mechanics & Kidepo Valley Expeditions',
+    bio: 'David oversees Tambula’s customized 4x4 Land Cruiser fleet. There is no remote mountain pass or muddy savannah track in East Africa that David has not conquered with calm confidence.',
+    fullBio: "With fifteen uninterrupted years traversing the roughest terrain in East Africa, David is the backbone of Tambula's field expedition safety. Having started his career apprenticing on bush heavy machinery and safari vehicle modifications in Kampala and Jinja, he knows every hydraulic pump, differential lock, and suspension spring on our custom pop-up Land Cruisers. His calm demeanor, sharp navigational foresight, and legendary bush culinary stories have turned thousands of miles of rugged East African roads into treasured traveler memories.",
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80',
+    languages: ['English', 'Luganda', 'Swahili', 'Ateso'],
+    region: 'Kidepo Valley, Murchison Falls & Karamoja Frontier',
+    certifications: [
+      'Toyota East Africa Heavy 4x4 Expedition Master',
+      'Defensive Off-Road Driving Certificate (UTB)',
+      'Remote Wilderness Mechanical Recovery Specialist',
+      'Red Cross Bush Trauma Care'
+    ],
+    notableExpeditions: 'Completed 75+ deep Karamoja and Kidepo frontier expeditions without a single stranded incident; navigated the remote northern borders during extreme rains.',
+    socials: {
+      facebook: 'https://facebook.com/david.mukasa.safari',
+      x: 'https://x.com/mukasa_bushmechanic',
+      instagram: 'https://instagram.com/david_mukasa_fleet',
+      linkedin: 'https://linkedin.com/in/david-mukasa-safari'
+    }
+  }
+];

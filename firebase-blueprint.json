@@ -1,0 +1,370 @@
+{
+  "entities": {
+    "Destination": {
+      "title": "Destination Itinerary",
+      "description": "Curated wildlife and safari destination itinerary",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the destination"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country where the destination is located"
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "Two letter country code"
+        },
+        "flag": {
+          "type": "string",
+          "description": "Flag emoji of the destination"
+        },
+        "badge": {
+          "type": "string",
+          "description": "Marketing badge or tag"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the safari tour"
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Short subtitle description"
+        },
+        "image": {
+          "type": "string",
+          "description": "Primary hero image URL"
+        },
+        "description": {
+          "type": "string",
+          "description": "Full overview description"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Tour duration in days"
+        },
+        "lodgingType": {
+          "type": "string",
+          "description": "Accommodation category"
+        },
+        "specialFeature": {
+          "type": "string",
+          "description": "Notable feature or highlight"
+        },
+        "departureSchedule": {
+          "type": "string",
+          "description": "Schedule frequency"
+        },
+        "priceFromUSD": {
+          "type": "number",
+          "description": "Starting price in USD"
+        }
+      },
+      "required": ["id", "title", "country", "description"]
+    },
+    "GroupDeparture": {
+      "title": "Group Departure",
+      "description": "Scheduled group expedition with real-time seat availability",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for group departure"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the departure"
+        },
+        "destination": {
+          "type": "string",
+          "description": "Destination national park or region"
+        },
+        "country": {
+          "type": "string",
+          "description": "Country of departure"
+        },
+        "flag": {
+          "type": "string",
+          "description": "Flag emoji"
+        },
+        "route": {
+          "type": "string",
+          "description": "Route description"
+        },
+        "startDate": {
+          "type": "string",
+          "description": "Expedition start date"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "Expedition end date"
+        },
+        "departureTimestamp": {
+          "type": "number",
+          "description": "Unix timestamp in ms"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Duration text e.g. 3 Days"
+        },
+        "datesDisplay": {
+          "type": "string",
+          "description": "Formatted dates range"
+        },
+        "days": {
+          "type": "number",
+          "description": "Number of days"
+        },
+        "priceUSD": {
+          "type": "number",
+          "description": "Price per person in USD"
+        },
+        "maxGroupSize": {
+          "type": "number",
+          "description": "Maximum number of travelers"
+        },
+        "seatsBooked": {
+          "type": "number",
+          "description": "Current number of confirmed seats"
+        },
+        "spotsLeft": {
+          "type": "number",
+          "description": "Remaining available spots"
+        },
+        "status": {
+          "type": "string",
+          "description": "Status badge label"
+        },
+        "image": {
+          "type": "string",
+          "description": "Cover photograph URL"
+        }
+      },
+      "required": ["id", "title", "destination", "country", "priceUSD", "maxGroupSize"]
+    },
+    "TeamMember": {
+      "title": "Team Member",
+      "description": "Naturalist guide, safari leader, or operations staff profile",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for team member"
+        },
+        "name": {
+          "type": "string",
+          "description": "Full name of the team member"
+        },
+        "role": {
+          "type": "string",
+          "description": "Title and primary role"
+        },
+        "years": {
+          "type": "string",
+          "description": "Years of experience"
+        },
+        "specialty": {
+          "type": "string",
+          "description": "Field specialty or guiding focus"
+        },
+        "bio": {
+          "type": "string",
+          "description": "Short bio summary"
+        },
+        "fullBio": {
+          "type": "string",
+          "description": "Extended background and expedition biography"
+        },
+        "image": {
+          "type": "string",
+          "description": "Profile picture URL or uploaded image data URL"
+        },
+        "region": {
+          "type": "string",
+          "description": "Primary guiding territory or region"
+        },
+        "notableExpeditions": {
+          "type": "string",
+          "description": "Highlighted expeditions and achievements"
+        }
+      },
+      "required": ["id", "name", "role", "bio", "image"]
+    },
+    "TripMemoryUpload": {
+      "title": "Trip Memory Upload",
+      "description": "Traveler or team uploaded expedition photo, memory, or review",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the uploaded memory"
+        },
+        "title": {
+          "type": "string",
+          "description": "Title or caption of the trip memory"
+        },
+        "destination": {
+          "type": "string",
+          "description": "Destination name"
+        },
+        "flag": {
+          "type": "string",
+          "description": "Country flag emoji"
+        },
+        "dates": {
+          "type": "string",
+          "description": "Dates of the trip"
+        },
+        "travelersCount": {
+          "type": "number",
+          "description": "Number of travelers in the party"
+        },
+        "coverImage": {
+          "type": "string",
+          "description": "Uploaded image URL or data"
+        },
+        "summary": {
+          "type": "string",
+          "description": "Summary or traveler quote"
+        },
+        "leadGuide": {
+          "type": "string",
+          "description": "Guide name"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["id", "title", "destination", "coverImage"]
+    },
+    "BookingSubmission": {
+      "title": "Booking Submission",
+      "description": "Group trip booking or reservation request",
+      "type": "object",
+      "properties": {
+        "bookingRef": {
+          "type": "string",
+          "description": "Unique booking reference code"
+        },
+        "tripId": {
+          "type": "string",
+          "description": "Associated trip ID"
+        },
+        "tripTitle": {
+          "type": "string",
+          "description": "Trip title"
+        },
+        "fullName": {
+          "type": "string",
+          "description": "Lead traveler full name"
+        },
+        "email": {
+          "type": "string",
+          "description": "Lead traveler email"
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone or WhatsApp"
+        },
+        "travelersCount": {
+          "type": "number",
+          "description": "Number of travelers"
+        },
+        "roomType": {
+          "type": "string",
+          "description": "Rooming choice"
+        },
+        "paymentMethod": {
+          "type": "string",
+          "description": "Selected payment method"
+        },
+        "totalAmountUSD": {
+          "type": "number",
+          "description": "Total amount in USD"
+        },
+        "status": {
+          "type": "string",
+          "description": "Booking status"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "ISO timestamp"
+        }
+      },
+      "required": ["bookingRef", "tripId", "fullName", "email", "totalAmountUSD"]
+    },
+    "HeroSlide": {
+      "title": "Hero Slide",
+      "description": "Homepage interactive hero carousel slide",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for hero slide"
+        },
+        "title": {
+          "type": "string",
+          "description": "Headline title for the slide"
+        },
+        "regionTag": {
+          "type": "string",
+          "description": "Category or region badge label"
+        },
+        "location": {
+          "type": "string",
+          "description": "Park or geographical location"
+        },
+        "countryTag": {
+          "type": "string",
+          "description": "Short country or sector identifier"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Slide hero image URL or data URI"
+        },
+        "subCaption": {
+          "type": "string",
+          "description": "Optional sub-caption"
+        },
+        "fact": {
+          "type": "string",
+          "description": "Informative wildlife or wilderness fact"
+        },
+        "order": {
+          "type": "number",
+          "description": "Sort order position"
+        }
+      },
+      "required": ["id", "title", "location", "imageUrl", "fact"]
+    }
+  },
+  "firestore": {
+    "/heroSlides/{slideId}": {
+      "schema": "HeroSlide",
+      "description": "Homepage hero slider items managed via CMS"
+    },
+    "/destinations/{destinationId}": {
+      "schema": "Destination",
+      "description": "Public destination itineraries maintained by CMS"
+    },
+    "/groupDepartures/{departureId}": {
+      "schema": "GroupDeparture",
+      "description": "Scheduled group departures with live bookings"
+    },
+    "/teamMembers/{memberId}": {
+      "schema": "TeamMember",
+      "description": "Team guides and leadership staff directory"
+    },
+    "/tripMemories/{memoryId}": {
+      "schema": "TripMemoryUpload",
+      "description": "Uploaded past safari trip memories and traveler photos"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "BookingSubmission",
+      "description": "Customer group bookings and inquiries"
+    }
+  }
+}

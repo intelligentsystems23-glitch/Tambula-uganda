@@ -3,7 +3,7 @@ import { AlertTriangle, Trash2, X } from 'lucide-react';
 
 interface DeleteConfirmModalProps {
   isOpen: boolean;
-  itemType: 'destination' | 'group-trip';
+  itemType: 'destination' | 'group-trip' | 'team-member' | 'trip-memory';
   itemName: string;
   onConfirm: () => void;
   onClose: () => void;
@@ -17,6 +17,15 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
   onClose,
 }) => {
   if (!isOpen) return null;
+
+  const itemLabel = 
+    itemType === 'group-trip' 
+      ? 'Group Departure' 
+      : itemType === 'team-member' 
+      ? 'Team Member' 
+      : itemType === 'trip-memory'
+      ? 'Trip Memory Upload'
+      : 'Destination';
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-200">
@@ -38,14 +47,14 @@ export const DeleteConfirmModal: React.FC<DeleteConfirmModalProps> = ({
           </div>
           <div>
             <h3 className="text-lg font-bold text-[#0e2117]">
-              Delete {itemType === 'group-trip' ? 'Group Departure' : 'Destination'}?
+              Delete {itemLabel}?
             </h3>
             <p className="text-xs text-red-600 font-medium">This action cannot be undone.</p>
           </div>
         </div>
 
         <p className="text-xs text-[#546557] leading-relaxed mb-6">
-          Are you sure you want to permanently remove <strong className="text-[#0e2117]">"{itemName}"</strong> from the Tambula catalog? It will immediately stop appearing on the public website.
+          Are you sure you want to permanently remove <strong className="text-[#0e2117]">"{itemName}"</strong> from {itemType === 'team-member' ? 'the team roster' : 'the Tambula catalog'}? It will immediately stop appearing on the public website.
         </p>
 
         <div className="flex items-center justify-end gap-3">

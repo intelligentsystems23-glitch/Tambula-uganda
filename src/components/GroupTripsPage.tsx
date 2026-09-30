@@ -36,10 +36,10 @@ function calculateTimeLeft(targetTimestamp?: number) {
 }
 
 export const GroupTripsPage: React.FC<GroupTripsPageProps> = ({ currency, onNavigatePage }) => {
-  const { groupDepartures } = useSafariData();
+  const { groupDepartures, tripMemories, addTripMemory } = useSafariData();
   const [activeTab, setActiveTab] = useState<'upcoming' | 'former'>('upcoming');
   const trips = groupDepartures;
-  const [formerTrips, setFormerTrips] = useState<FormerTrip[]>(initialFormerTrips);
+  const formerTrips = tripMemories;
   const [viewMode, setViewMode] = useState<'table' | 'cards'>('cards');
   const [filterCountry, setFilterCountry] = useState<string>('all');
   
@@ -78,8 +78,8 @@ export const GroupTripsPage: React.FC<GroupTripsPageProps> = ({ currency, onNavi
     window.open(`https://wa.me/256781674358?text=${text}`, '_blank');
   };
 
-  const handleAddFormerTrip = (newTrip: FormerTrip) => {
-    setFormerTrips([newTrip, ...formerTrips]);
+  const handleAddFormerTrip = async (newTrip: FormerTrip) => {
+    await addTripMemory(newTrip);
   };
 
   const filteredTrips = trips.filter((t) => {
@@ -169,7 +169,7 @@ export const GroupTripsPage: React.FC<GroupTripsPageProps> = ({ currency, onNavi
             <button
               onClick={() => setActiveTab('upcoming')}
               id="tab-upcoming-trips"
-              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold transition-all cursor-pointer ${
                 activeTab === 'upcoming'
                   ? 'bg-[#ee5f27] text-white shadow-xs'
                   : 'text-[#506054] hover:text-[#102419]'
@@ -182,7 +182,7 @@ export const GroupTripsPage: React.FC<GroupTripsPageProps> = ({ currency, onNavi
             <button
               onClick={() => setActiveTab('former')}
               id="tab-previous-trips"
-              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-xs font-bold transition-all ${
+              className={`flex-1 sm:flex-initial flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg text-sm font-bold transition-all cursor-pointer ${
                 activeTab === 'former'
                   ? 'bg-[#048310] text-white shadow-xs'
                   : 'text-[#506054] hover:text-[#102419]'
@@ -196,17 +196,17 @@ export const GroupTripsPage: React.FC<GroupTripsPageProps> = ({ currency, onNavi
           {/* Controls: Upload Proof Button & View Switcher */}
           <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
             {activeTab === 'upcoming' && (
-              <div className="flex items-center gap-2 bg-white px-2 py-1 rounded-lg border border-[#ded5c6] text-xs">
-                <span className="text-[11px] text-gray-500 font-medium">View:</span>
+              <div className="flex items-center gap-2 bg-white px-2.5 py-1 rounded-lg border border-[#ded5c6] text-xs sm:text-sm">
+                <span className="text-xs text-gray-500 font-medium">View:</span>
                 <button
                   onClick={() => setViewMode('cards')}
-                  className={`px-2 py-1 rounded font-semibold ${viewMode === 'cards' ? 'bg-[#f0e7d8] text-[#102419]' : 'text-gray-500 hover:text-black'}`}
+                  className={`px-2.5 py-1 rounded font-semibold cursor-pointer ${viewMode === 'cards' ? 'bg-[#f0e7d8] text-[#102419]' : 'text-gray-500 hover:text-black'}`}
                 >
                   Cards
                 </button>
                 <button
                   onClick={() => setViewMode('table')}
-                  className={`px-2 py-1 rounded font-semibold ${viewMode === 'table' ? 'bg-[#f0e7d8] text-[#102419]' : 'text-gray-500 hover:text-black'}`}
+                  className={`px-2.5 py-1 rounded font-semibold cursor-pointer ${viewMode === 'table' ? 'bg-[#f0e7d8] text-[#102419]' : 'text-gray-500 hover:text-black'}`}
                 >
                   Table
                 </button>
@@ -217,9 +217,9 @@ export const GroupTripsPage: React.FC<GroupTripsPageProps> = ({ currency, onNavi
               <button
                 onClick={() => setIsUploadModalOpen(true)}
                 id="btn-upload-memory"
-                className="inline-flex items-center gap-1.5 bg-[#ee5f27] hover:bg-[#d64e18] text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow-xs transition-all active:scale-98"
+                className="inline-flex items-center gap-2 bg-[#ee5f27] hover:bg-[#d64e18] text-white px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-xs transition-all active:scale-98 cursor-pointer"
               >
-                <Upload className="w-3.5 h-3.5" />
+                <Upload className="w-4 h-4" />
                 <span>+ Upload Former Trip Memory</span>
               </button>
             )}

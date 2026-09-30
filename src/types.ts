@@ -145,3 +145,38 @@ export interface BookingFormState {
   needsFlights: boolean;
   notes: string;
 }
+
+export interface TeamSocialLinks {
+  facebook?: string;
+  x?: string;
+  instagram?: string;
+  linkedin?: string;
+}
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  fullBio: string;
+  image: string;
+  years?: string;
+  specialty?: string;
+  languages?: string[];
+  region?: string;
+  certifications?: string[];
+  notableExpeditions?: string;
+  socials?: TeamSocialLinks;
+}
+
+export interface HeroSlide {
+  id: string;
+  title: string;
+  regionTag: string;
+  location: string;
+  countryTag: string;
+  imageUrl: string;
+  subCaption?: string;
+  fact: string;
+  order?: number;
+}

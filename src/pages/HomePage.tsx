@@ -68,92 +68,92 @@ export const HomePage: React.FC<HomePageProps> = ({
             {/* Card 1: Group Trips */}
             <button
               onClick={() => onNavigatePage('group-trips')}
-              className="bg-[#faf7f2] hover:bg-[#f3ede3] p-6 rounded-2xl border border-[#e5ded2] text-left transition-all group flex flex-col justify-between shadow-2xs hover:shadow-md"
+              className="bg-[#faf7f2] hover:bg-[#f3ede3] p-6 rounded-2xl border border-[#e5ded2] text-left transition-all group flex flex-col justify-between shadow-2xs hover:shadow-md cursor-pointer"
             >
               <div className="space-y-3">
-                <div className="w-11 h-11 rounded-xl bg-[#048310]/15 text-[#048310] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Users className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-xl bg-[#048310]/15 text-[#048310] flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Users className="w-6 h-6" />
                 </div>
-                <div className="inline-block text-[10px] font-bold uppercase tracking-wider text-[#048310] bg-[#048310]/10 px-2 py-0.5 rounded-full">
+                <div className="inline-block text-xs font-bold uppercase tracking-wider text-[#048310] bg-[#048310]/10 px-2.5 py-0.5 rounded-full">
                   Upcoming 2026
                 </div>
-                <h3 className="font-bold text-lg text-[#0e2117]">Group Expeditions</h3>
-                <p className="text-xs text-[#526055] leading-relaxed">
+                <h3 className="font-bold text-xl text-[#0e2117]">Group Expeditions</h3>
+                <p className="text-sm sm:text-[15px] text-[#526055] leading-relaxed">
                   Join scheduled departures with live seat tracking, countdown clocks, and verified traveler photos.
                 </p>
               </div>
-              <div className="pt-4 flex items-center gap-1.5 text-xs font-semibold text-[#048310] group-hover:translate-x-1 transition-transform">
+              <div className="pt-4 flex items-center gap-1.5 text-sm font-semibold text-[#048310] group-hover:translate-x-1 transition-transform">
                 <span>View Group Schedule</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </div>
             </button>
 
             {/* Card 2: Our Services */}
             <button
               onClick={() => onNavigatePage('services')}
-              className="bg-[#faf7f2] hover:bg-[#f3ede3] p-6 rounded-2xl border border-[#e5ded2] text-left transition-all group flex flex-col justify-between shadow-2xs hover:shadow-md"
+              className="bg-[#faf7f2] hover:bg-[#f3ede3] p-6 rounded-2xl border border-[#e5ded2] text-left transition-all group flex flex-col justify-between shadow-2xs hover:shadow-md cursor-pointer"
             >
               <div className="space-y-3">
-                <div className="w-11 h-11 rounded-xl bg-[#ee5f27]/15 text-[#ee5f27] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Compass className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-xl bg-[#ee5f27]/15 text-[#ee5f27] flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Compass className="w-6 h-6" />
                 </div>
-                <div className="inline-block text-[10px] font-bold uppercase tracking-wider text-[#ee5f27] bg-[#ee5f27]/10 px-2 py-0.5 rounded-full">
+                <div className="inline-block text-xs font-bold uppercase tracking-wider text-[#ee5f27] bg-[#ee5f27]/10 px-2.5 py-0.5 rounded-full">
                   All 8 Divisions
                 </div>
-                <h3 className="font-bold text-lg text-[#0e2117]">Travel Services</h3>
-                <p className="text-xs text-[#526055] leading-relaxed">
+                <h3 className="font-bold text-xl text-[#0e2117]">Travel Services</h3>
+                <p className="text-sm sm:text-[15px] text-[#526055] leading-relaxed">
                   Bespoke solo safaris, IATA flight bookings, 4x4 cruiser rentals, gorilla permits, and corporate retreats.
                 </p>
               </div>
-              <div className="pt-4 flex items-center gap-1.5 text-xs font-semibold text-[#ee5f27] group-hover:translate-x-1 transition-transform">
+              <div className="pt-4 flex items-center gap-1.5 text-sm font-semibold text-[#ee5f27] group-hover:translate-x-1 transition-transform">
                 <span>Explore All Services</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </div>
             </button>
 
             {/* Card 3: Destinations */}
             <button
               onClick={() => onNavigatePage('destinations')}
-              className="bg-[#faf7f2] hover:bg-[#f3ede3] p-6 rounded-2xl border border-[#e5ded2] text-left transition-all group flex flex-col justify-between shadow-2xs hover:shadow-md"
+              className="bg-[#faf7f2] hover:bg-[#f3ede3] p-6 rounded-2xl border border-[#e5ded2] text-left transition-all group flex flex-col justify-between shadow-2xs hover:shadow-md cursor-pointer"
             >
               <div className="space-y-3">
-                <div className="w-11 h-11 rounded-xl bg-[#0e2117]/15 text-[#0e2117] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <MapPin className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-xl bg-[#0e2117]/15 text-[#0e2117] flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <MapPin className="w-6 h-6" />
                 </div>
-                <div className="inline-block text-[10px] font-bold uppercase tracking-wider text-[#0e2117] bg-[#0e2117]/10 px-2 py-0.5 rounded-full">
+                <div className="inline-block text-xs font-bold uppercase tracking-wider text-[#0e2117] bg-[#0e2117]/10 px-2.5 py-0.5 rounded-full">
                   East Africa & Beyond
                 </div>
-                <h3 className="font-bold text-lg text-[#0e2117]">Destinations</h3>
-                <p className="text-xs text-[#526055] leading-relaxed">
+                <h3 className="font-bold text-xl text-[#0e2117]">Destinations</h3>
+                <p className="text-sm sm:text-[15px] text-[#526055] leading-relaxed">
                   Uganda gorilla cloud forests, Serengeti migration plains, Zanzibar beaches, Dubai, and Rwanda.
                 </p>
               </div>
-              <div className="pt-4 flex items-center gap-1.5 text-xs font-semibold text-[#0e2117] group-hover:translate-x-1 transition-transform">
+              <div className="pt-4 flex items-center gap-1.5 text-sm font-semibold text-[#0e2117] group-hover:translate-x-1 transition-transform">
                 <span>Browse Itineraries</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </div>
             </button>
 
             {/* Card 4: Our Genesis */}
             <button
               onClick={() => onNavigatePage('genesis')}
-              className="bg-[#faf7f2] hover:bg-[#f3ede3] p-6 rounded-2xl border border-[#e5ded2] text-left transition-all group flex flex-col justify-between shadow-2xs hover:shadow-md"
+              className="bg-[#faf7f2] hover:bg-[#f3ede3] p-6 rounded-2xl border border-[#e5ded2] text-left transition-all group flex flex-col justify-between shadow-2xs hover:shadow-md cursor-pointer"
             >
               <div className="space-y-3">
-                <div className="w-11 h-11 rounded-xl bg-[#183a26]/15 text-[#183a26] flex items-center justify-center group-hover:scale-105 transition-transform">
-                  <Sparkles className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-xl bg-[#183a26]/15 text-[#183a26] flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <Sparkles className="w-6 h-6" />
                 </div>
-                <div className="inline-block text-[10px] font-bold uppercase tracking-wider text-[#183a26] bg-[#183a26]/10 px-2 py-0.5 rounded-full">
+                <div className="inline-block text-xs font-bold uppercase tracking-wider text-[#183a26] bg-[#183a26]/10 px-2.5 py-0.5 rounded-full">
                   Our Story
                 </div>
-                <h3 className="font-bold text-lg text-[#0e2117]">Our Genesis</h3>
-                <p className="text-xs text-[#526055] leading-relaxed">
+                <h3 className="font-bold text-xl text-[#0e2117]">Our Genesis</h3>
+                <p className="text-sm sm:text-[15px] text-[#526055] leading-relaxed">
                   Learn about our indigenous naturalist guides, sustainable safari philosophy, and community conservation roots.
                 </p>
               </div>
-              <div className="pt-4 flex items-center gap-1.5 text-xs font-semibold text-[#183a26] group-hover:translate-x-1 transition-transform">
+              <div className="pt-4 flex items-center gap-1.5 text-sm font-semibold text-[#183a26] group-hover:translate-x-1 transition-transform">
                 <span>Read Our Story</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-4 h-4" />
               </div>
             </button>
           </div>
@@ -165,20 +165,20 @@ export const HomePage: React.FC<HomePageProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
-              <span className="text-[#048310] text-xs font-bold uppercase tracking-widest">
+              <span className="text-[#048310] text-xs sm:text-sm font-bold uppercase tracking-widest">
                 VERIFIED 2026 DEPARTURES
               </span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-[#0e2117] mt-1">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0e2117] mt-1">
                 Upcoming Group Expeditions
               </h2>
-              <p className="text-[#556358] text-xs sm:text-sm mt-1 max-w-xl">
+              <p className="text-[#556358] text-sm sm:text-base mt-1 max-w-xl">
                 Small-group camaraderie, guaranteed window seats in high-suspension 4x4 Land Cruisers, and transparent pricing.
               </p>
             </div>
 
             <button
               onClick={() => onNavigatePage('group-trips')}
-              className="bg-[#0e2117] hover:bg-[#183a26] text-white px-5 py-2.5 rounded-xl text-xs font-semibold transition-colors inline-flex items-center gap-2 shrink-0 self-start md:self-auto shadow-xs"
+              className="bg-[#0e2117] hover:bg-[#183a26] text-white px-5 py-3 rounded-xl text-sm font-semibold transition-colors inline-flex items-center gap-2 shrink-0 self-start md:self-auto shadow-xs cursor-pointer"
             >
               <span>View Full Group Trips Page & Countdowns</span>
               <ArrowRight className="w-4 h-4 text-[#ee5f27]" />
@@ -194,35 +194,35 @@ export const HomePage: React.FC<HomePageProps> = ({
                   className="bg-white rounded-2xl overflow-hidden border border-[#e5ded2] shadow-xs flex flex-col justify-between hover:shadow-md transition-all group"
                 >
                   <div>
-                    <div className="relative h-48 overflow-hidden">
+                    <div className="relative h-52 overflow-hidden">
                       <img
                         src={dep.image}
                         alt={dep.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-                      <div className="absolute top-3 left-3 bg-[#0e2117]/85 backdrop-blur-xs text-white text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                      <div className="absolute top-3 left-3 bg-[#0e2117]/85 backdrop-blur-xs text-white text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                         <span>{dep.flag}</span>
                         <span>{dep.destination}</span>
                       </div>
-                      <div className="absolute top-3 right-3 bg-[#ee5f27] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase">
+                      <div className="absolute top-3 right-3 bg-[#ee5f27] text-white text-[11px] font-bold px-2.5 py-0.5 rounded-full uppercase">
                         {dep.spotsLeft} Seats Left
                       </div>
-                      <div className="absolute bottom-3 left-3 right-3 text-white font-bold text-base">
+                      <div className="absolute bottom-3 left-3 right-3 text-white font-bold text-lg">
                         {dep.title}
                       </div>
                     </div>
 
-                    <div className="p-5 space-y-3 text-xs">
-                      <div className="flex items-center justify-between text-[#68786d] pb-2 border-b border-[#f0eae0]">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3.5 h-3.5 text-[#ee5f27]" />
+                    <div className="p-5 space-y-3">
+                      <div className="flex items-center justify-between text-[#68786d] pb-2 border-b border-[#f0eae0] text-sm">
+                        <span className="flex items-center gap-1.5 font-medium">
+                          <Calendar className="w-4 h-4 text-[#ee5f27]" />
                           <span>{dep.datesDisplay}</span>
                         </span>
                         <span className="font-semibold text-[#0e2117]">{dep.duration}</span>
                       </div>
 
-                      <p className="text-[#526055] line-clamp-2 leading-relaxed">
+                      <p className="text-sm text-[#526055] line-clamp-2 leading-relaxed">
                         {dep.route}
                       </p>
                     </div>
@@ -230,15 +230,15 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                   <div className="p-5 pt-3 bg-[#faf7f2] border-t border-[#f0eae0] flex items-center justify-between">
                     <div>
-                      <span className="text-[10px] text-[#8e9f91] uppercase block">Cost Per Person</span>
-                      <strong className="text-sm text-[#0e2117]">
+                      <span className="text-xs text-[#8e9f91] uppercase block font-medium">Cost Per Person</span>
+                      <strong className="text-base text-[#0e2117]">
                         {currency.symbol}{convertedPrice.toLocaleString()} {currency.code}
                       </strong>
                     </div>
 
                     <button
                       onClick={() => onNavigatePage('group-trips')}
-                      className="bg-[#048310] hover:bg-[#036c0d] text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-colors"
+                      className="bg-[#048310] hover:bg-[#036c0d] text-white px-4 py-2 rounded-xl text-sm font-semibold transition-colors cursor-pointer shadow-xs"
                     >
                       Book Seat
                     </button>

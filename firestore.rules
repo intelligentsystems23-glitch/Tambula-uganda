@@ -1,0 +1,159 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global Safety Net (Pillar 1)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Hardened Global Helpers
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'obajikambrose@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Validation Blueprint for Destination
+    function isValidDestination(data) {
+      return data.keys().hasAll(['id', 'title', 'country', 'description']) &&
+        data.id is string && isValidId(data.id) &&
+        data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+        data.country is string && data.country.size() > 0 && data.country.size() <= 100 &&
+        data.description is string && data.description.size() > 0 && data.description.size() <= 15000 &&
+        (!('priceFromUSD' in data) || (data.priceFromUSD is number && data.priceFromUSD >= 0)) &&
+        (!('image' in data) || (data.image is string && data.image.size() <= 500000));
+    }
+
+    // Validation Blueprint for Group Departure
+    function isValidGroupDeparture(data) {
+      return data.keys().hasAll(['id', 'title', 'destination', 'country', 'priceUSD', 'maxGroupSize']) &&
+        data.id is string && isValidId(data.id) &&
+        data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+        data.destination is string && data.destination.size() > 0 && data.destination.size() <= 200 &&
+        data.country is string && data.country.size() > 0 && data.country.size() <= 100 &&
+        data.priceUSD is number && data.priceUSD >= 0 &&
+        data.maxGroupSize is number && data.maxGroupSize > 0 && data.maxGroupSize <= 200 &&
+        (!('seatsBooked' in data) || (data.seatsBooked is number && data.seatsBooked >= 0 && data.seatsBooked <= data.maxGroupSize)) &&
+        (!('image' in data) || (data.image is string && data.image.size() <= 500000));
+    }
+
+    // Validation Blueprint for Team Member (Supports profile picture upload up to 1MB)
+    function isValidTeamMember(data) {
+      return data.keys().hasAll(['id', 'name', 'role', 'bio', 'image']) &&
+        data.id is string && isValidId(data.id) &&
+        data.name is string && data.name.size() > 0 && data.name.size() <= 120 &&
+        data.role is string && data.role.size() > 0 && data.role.size() <= 150 &&
+        data.bio is string && data.bio.size() > 0 && data.bio.size() <= 5000 &&
+        data.image is string && data.image.size() > 0 && data.image.size() <= 1200000 &&
+        (!('specialty' in data) || (data.specialty is string && data.specialty.size() <= 250)) &&
+        (!('years' in data) || (data.years is string && data.years.size() <= 80)) &&
+        (!('region' in data) || (data.region is string && data.region.size() <= 150)) &&
+        (!('notableExpeditions' in data) || (data.notableExpeditions is string && data.notableExpeditions.size() <= 5000)) &&
+        (!('fullBio' in data) || (data.fullBio is string && data.fullBio.size() <= 15000)) &&
+        (!('languages' in data) || (data.languages is list)) &&
+        (!('certifications' in data) || (data.certifications is list)) &&
+        (!('socials' in data) || (data.socials is map));
+    }
+
+    // Validation Blueprint for Trip Memory Uploads
+    function isValidTripMemory(data) {
+      return data.keys().hasAll(['id', 'title', 'destination', 'coverImage']) &&
+        data.id is string && isValidId(data.id) &&
+        data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+        data.destination is string && data.destination.size() > 0 && data.destination.size() <= 150 &&
+        data.coverImage is string && data.coverImage.size() > 0 && data.coverImage.size() <= 1200000 &&
+        (!('travelersCount' in data) || (data.travelersCount is number && data.travelersCount >= 1 && data.travelersCount <= 200)) &&
+        (!('summary' in data) || (data.summary is string && data.summary.size() <= 5000));
+    }
+
+    // Validation Blueprint for Bookings
+    function isValidBooking(data) {
+      return data.keys().hasAll(['bookingRef', 'tripId', 'fullName', 'email', 'totalAmountUSD']) &&
+        data.bookingRef is string && isValidId(data.bookingRef) &&
+        data.tripId is string && isValidId(data.tripId) &&
+        data.fullName is string && data.fullName.size() > 0 && data.fullName.size() <= 150 &&
+        data.email is string && data.email.size() > 3 && data.email.size() <= 150 &&
+        data.totalAmountUSD is number && data.totalAmountUSD >= 0;
+    }
+
+    // Validation Blueprint for Hero Slide
+    function isValidHeroSlide(data) {
+      return data.keys().hasAll(['id', 'title', 'location', 'imageUrl', 'fact']) &&
+        data.id is string && isValidId(data.id) &&
+        data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+        data.location is string && data.location.size() > 0 && data.location.size() <= 200 &&
+        data.fact is string && data.fact.size() > 0 && data.fact.size() <= 2000 &&
+        data.imageUrl is string && data.imageUrl.size() > 0 && data.imageUrl.size() <= 1200000 &&
+        (!('regionTag' in data) || (data.regionTag is string && data.regionTag.size() <= 150)) &&
+        (!('countryTag' in data) || (data.countryTag is string && data.countryTag.size() <= 150)) &&
+        (!('subCaption' in data) || (data.subCaption is string && data.subCaption.size() <= 200)) &&
+        (!('order' in data) || (data.order is number));
+    }
+
+    // 0. Hero Slides Collection (Managed via CMS)
+    match /heroSlides/{slideId} {
+      allow get, list: if true;
+      allow create: if isValidId(slideId) && slideId == incoming().id && isValidHeroSlide(incoming());
+      allow update: if isValidId(slideId) && isValidHeroSlide(incoming());
+      allow delete: if isValidId(slideId);
+    }
+
+    // 1. Destinations Collection
+    match /destinations/{destinationId} {
+      allow get, list: if true;
+      allow create: if isValidId(destinationId) && destinationId == incoming().id && isValidDestination(incoming());
+      allow update: if isValidId(destinationId) && isValidDestination(incoming());
+      allow delete: if isValidId(destinationId);
+    }
+
+    // 2. Group Departures Collection
+    match /groupDepartures/{departureId} {
+      allow get, list: if true;
+      allow create: if isValidId(departureId) && departureId == incoming().id && isValidGroupDeparture(incoming());
+      allow update: if isValidId(departureId) && isValidGroupDeparture(incoming());
+      allow delete: if isValidId(departureId);
+    }
+
+    // 3. Team Members Collection
+    match /teamMembers/{memberId} {
+      allow get, list: if true;
+      allow create: if isValidId(memberId) && memberId == incoming().id && isValidTeamMember(incoming());
+      allow update: if isValidId(memberId) && isValidTeamMember(incoming());
+      allow delete: if isValidId(memberId);
+    }
+
+    // 4. Trip Memory Uploads Collection
+    match /tripMemories/{memoryId} {
+      allow get, list: if true;
+      allow create: if isValidId(memoryId) && memoryId == incoming().id && isValidTripMemory(incoming());
+      allow update: if isValidId(memoryId) && isValidTripMemory(incoming());
+      allow delete: if isValidId(memoryId);
+    }
+
+    // 5. Booking Submissions Collection
+    match /bookings/{bookingId} {
+      allow get: if isValidId(bookingId) && (isAdmin() || (isSignedIn() && existing().email == request.auth.token.email));
+      allow list: if isAdmin();
+      allow create: if isValidId(bookingId) && bookingId == incoming().bookingRef && isValidBooking(incoming());
+      allow update, delete: if isAdmin();
+    }
+  }
+}

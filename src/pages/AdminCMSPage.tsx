@@ -9,6 +9,7 @@ import {
   Calendar, 
   MapPin, 
   Users, 
+  Users2,
   Compass, 
   Sparkles, 
   CheckCircle2, 
@@ -19,46 +20,72 @@ import {
   ExternalLink,
   ShieldCheck,
   Eye,
-  SlidersHorizontal
+  SlidersHorizontal,
+  Award,
+  Globe,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Database,
+  RefreshCw,
+  Camera,
+  X as XIcon
 } from 'lucide-react';
 import { useSafariData } from '../context/SafariDataContext';
-import { DestinationItinerary, GroupDeparture, CurrencyConfig } from '../types';
+import { DestinationItinerary, GroupDeparture, TeamMember, CurrencyConfig, FormerTrip } from '../types';
 import { DestinationModal } from '../components/admin/DestinationModal';
 import { GroupDepartureModal } from '../components/admin/GroupDepartureModal';
 import { DeleteConfirmModal } from '../components/admin/DeleteConfirmModal';
+import { TeamMemberModal } from '../components/admin/TeamMemberModal';
+import { UploadTripMemoryModal } from '../components/UploadTripMemoryModal';
 
 interface AdminCMSPageProps {
   currency: CurrencyConfig;
   onNavigatePage: (pageId: string) => void;
   onSelectDestination?: (dest: DestinationItinerary) => void;
+  initialTab?: 'group-departures' | 'destinations' | 'team' | 'uploads' | 'overview';
 }
 
 export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
   currency,
   onNavigatePage,
   onSelectDestination,
+  initialTab,
 }) => {
   const {
     destinations,
     groupDepartures,
+    teamMembers,
+    tripMemories,
+    syncStatus,
+    lastSyncedAt,
     addDestination,
     updateDestination,
     deleteDestination,
     addGroupDeparture,
     updateGroupDeparture,
     deleteGroupDeparture,
+    addTeamMember,
+    updateTeamMember,
+    deleteTeamMember,
+    addTripMemory,
+    deleteTripMemory,
+    forceSyncNow,
     resetToDefaults,
     exportAllData,
     importAllData,
   } = useSafariData();
 
   // Active view tab
-  const [activeTab, setActiveTab] = useState<'group-departures' | 'destinations' | 'overview'>('group-departures');
+  const [activeTab, setActiveTab] = useState<'group-departures' | 'destinations' | 'team' | 'uploads' | 'overview'>(
+    initialTab || 'group-departures'
+  );
 
   // Search & Filter state
   const [searchQuery, setSearchQuery] = useState('');
   const [filterCountry, setFilterCountry] = useState('All');
   const [filterStatus, setFilterStatus] = useState('All');
+  const [filterTeamRole, setFilterTeamRole] = useState('All');
 
   // Modals state
   const [isDestModalOpen, setIsDestModalOpen] = useState(false);
@@ -67,9 +94,16 @@ export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
   const [isGroupModalOpen, setIsGroupModalOpen] = useState(false);
   const [selectedGroupForEdit, setSelectedGroupForEdit] = useState<GroupDeparture | null>(null);
 
+  const [isTeamModalOpen, setIsTeamModalOpen] = useState(false);
+  const [selectedTeamForEdit, setSelectedTeamForEdit] = useState<TeamMember | null>(null);
+  const [previewTeamMember, setPreviewTeamMember] = useState<TeamMember | null>(null);
+
+  // Uploaded Trip Memories Modal state
+  const [isUploadMemoryModalOpen, setIsUploadMemoryModalOpen] = useState(false);
+
   const [deleteModalState, setDeleteModalState] = useState<{
     isOpen: boolean;
-    itemType: 'destination' | 'group-trip';
+    itemType: 'destination' | 'group-trip' | 'team-member' | 'trip-memory';
     id: string;
     title: string;
   }>({
@@ -122,6 +156,28 @@ export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
       return matchSearch && matchCountry;
     });
   }, [destinations, searchQuery, filterCountry]);
+
+  // Filtered Team Members
+  const filteredTeamMembers = useMemo(() => {
+    return teamMembers.filter((member) => {
+      const matchSearch =
+        (member.name || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (member.role || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (member.region || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (member.specialty || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (member.bio || '').toLowerCase().includes(searchQuery.toLowerCase());
+
+      const matchRole =
+        filterTeamRole === 'All' ||
+        (member.role || '').toLowerCase().includes(filterTeamRole.toLowerCase()) ||
+        (filterTeamRole === 'Naturalist' && ((member.role || '').toLowerCase().includes('naturalist') || (member.role || '').toLowerCase().includes('ornithology'))) ||
+        (filterTeamRole === 'Guiding' && (member.role || '').toLowerCase().includes('guiding')) ||
+        (filterTeamRole === 'Fleet' && (member.role || '').toLowerCase().includes('fleet')) ||
+        (filterTeamRole === 'Directorate' && (member.role || '').toLowerCase().includes('directorate'));
+
+      return matchSearch && matchRole;
+    });
+  }, [teamMembers, searchQuery, filterTeamRole]);
 
   // Handlers for Destinations
   const handleOpenAddDestination = () => {
@@ -208,10 +264,82 @@ export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
     });
   };
 
+  // Handlers for Team Members
+  const handleOpenAddTeamMember = () => {
+    setSelectedTeamForEdit(null);
+    setIsTeamModalOpen(true);
+  };
+
+  const handleOpenEditTeamMember = (member: TeamMember) => {
+    setSelectedTeamForEdit(member);
+    setIsTeamModalOpen(true);
+  };
+
+  const handleSaveTeamMember = async (member: TeamMember) => {
+    try {
+      if (selectedTeamForEdit) {
+        await updateTeamMember(member.id, member);
+        showToast(`Successfully updated team member: "${member.name}"`);
+      } else {
+        await addTeamMember(member);
+        showToast(`Added new team member: "${member.name}"`);
+      }
+    } catch (err) {
+      console.error('Error saving team member:', err);
+      showToast(
+        `Failed to save "${member.name}": ${err instanceof Error ? err.message : 'Database error'}`
+      );
+    }
+  };
+
+  const handleDuplicateTeamMember = (member: TeamMember) => {
+    const duplicated: TeamMember = {
+      ...member,
+      id: `team-${Date.now()}`,
+      name: `${member.name} (Copy)`,
+    };
+    addTeamMember(duplicated);
+    showToast(`Duplicated team member: "${duplicated.name}"`);
+  };
+
+  const handleDeleteTeamMemberClick = (member: TeamMember) => {
+    setDeleteModalState({
+      isOpen: true,
+      itemType: 'team-member',
+      id: member.id,
+      title: member.name,
+    });
+  };
+
+  // Handlers for Uploaded Trip Memories
+  const handleOpenAddUploadMemory = () => {
+    setIsUploadMemoryModalOpen(true);
+  };
+
+  const handleSaveUploadMemory = async (trip: FormerTrip) => {
+    await addTripMemory(trip);
+    showToast(`Saved trip memory to database: "${trip.title}"`);
+  };
+
+  const handleDeleteTripMemoryClick = (trip: FormerTrip) => {
+    setDeleteModalState({
+      isOpen: true,
+      itemType: 'trip-memory',
+      id: trip.id,
+      title: trip.title,
+    });
+  };
+
   const handleConfirmDelete = () => {
     if (deleteModalState.itemType === 'destination') {
       deleteDestination(deleteModalState.id);
       showToast(`Removed destination: "${deleteModalState.title}"`);
+    } else if (deleteModalState.itemType === 'team-member') {
+      deleteTeamMember(deleteModalState.id);
+      showToast(`Removed team member: "${deleteModalState.title}"`);
+    } else if (deleteModalState.itemType === 'trip-memory') {
+      deleteTripMemory(deleteModalState.id);
+      showToast(`Removed trip memory: "${deleteModalState.title}"`);
     } else {
       deleteGroupDeparture(deleteModalState.id);
       showToast(`Removed group trip: "${deleteModalState.title}"`);
@@ -343,6 +471,47 @@ export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
           </div>
         </div>
 
+        {/* Firestore Database Connection Bar */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2.5 bg-[#0a1a11] border-t border-white/10 flex flex-wrap items-center justify-between text-xs text-white/80 gap-3">
+          <div className="flex items-center gap-2.5">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
+                syncStatus === 'connected' ? 'bg-[#048310]' : syncStatus === 'syncing' ? 'bg-[#ee5f27]' : 'bg-amber-400'
+              }`} />
+              <span className={`relative inline-flex rounded-full h-2.5 w-2.5 ${
+                syncStatus === 'connected' ? 'bg-[#048310]' : syncStatus === 'syncing' ? 'bg-[#ee5f27]' : 'bg-amber-400'
+              }`} />
+            </span>
+            <div className="flex items-center gap-1.5 font-semibold text-white">
+              <Database className="w-3.5 h-3.5 text-[#048310]" />
+              <span>Firestore Cloud Database:</span>
+              <span className="text-[#048310] font-bold">
+                {syncStatus === 'connected' ? 'Connected & Live' : syncStatus === 'syncing' ? 'Syncing...' : 'Local Cache Active'}
+              </span>
+            </div>
+            <span className="text-white/40 hidden md:inline">|</span>
+            <span className="text-[11px] text-white/60 hidden lg:inline">
+              Database: <code className="text-[#a4e2a8] bg-black/30 px-1 py-0.5 rounded font-mono text-[10px]">ai-studio-tambulatourstrav</code>
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {lastSyncedAt && (
+              <span className="text-[11px] text-white/60 hidden sm:inline">
+                Last synced: {lastSyncedAt.toLocaleTimeString()}
+              </span>
+            )}
+            <button
+              type="button"
+              onClick={forceSyncNow}
+              className="flex items-center gap-1 text-[11px] bg-white/10 hover:bg-white/20 text-white px-2.5 py-1 rounded-lg transition-colors font-medium cursor-pointer"
+            >
+              <RefreshCw className={`w-3 h-3 ${syncStatus === 'syncing' ? 'animate-spin' : ''}`} />
+              <span>Sync Now</span>
+            </button>
+          </div>
+        </div>
+
         {/* Tab Navigation Navigation Bar */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-2 border-t border-white/10 overflow-x-auto">
           <button
@@ -372,6 +541,36 @@ export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
             <span>All Other Destinations & Circuits</span>
             <span className="bg-white/20 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">
               {destinations.length}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('team')}
+            className={`py-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 shrink-0 ${
+              activeTab === 'team'
+                ? 'border-[#ee5f27] text-white bg-white/5'
+                : 'border-transparent text-white/60 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <Users2 className="w-4 h-4 text-[#ee5f27]" />
+            <span>Team & Naturalist Guides</span>
+            <span className="bg-white/20 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">
+              {teamMembers.length}
+            </span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('uploads')}
+            className={`py-3 px-4 text-xs font-bold border-b-2 transition-all flex items-center gap-2 shrink-0 ${
+              activeTab === 'uploads'
+                ? 'border-[#ee5f27] text-white bg-white/5'
+                : 'border-transparent text-white/60 hover:text-white hover:bg-white/5'
+            }`}
+          >
+            <Camera className="w-4 h-4 text-[#048310]" />
+            <span>Uploads & Trip Memories</span>
+            <span className="bg-white/20 text-white text-[10px] px-1.5 py-0.2 rounded-full font-bold">
+              {tripMemories.length}
             </span>
           </button>
 
@@ -840,34 +1039,197 @@ export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
           </div>
         )}
 
-        {/* TAB 3: OVERVIEW & CATALOG BACKUP */}
+        {/* TAB 3: TEAM & NATURALIST GUIDES CMS */}
+        {activeTab === 'team' && (
+          <div className="space-y-6">
+            {/* Action Bar */}
+            <div className="bg-white p-5 rounded-2xl border border-[#e5ddcf] shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-3 grow">
+                {/* Search */}
+                <div className="relative grow sm:max-w-xs">
+                  <Search className="w-4 h-4 text-[#758678] absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder="Search guides by name, specialty, zone..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-[#d6ccbe] bg-[#fcfbfa] text-[#0e2117] focus:border-[#048310] focus:outline-hidden"
+                  />
+                </div>
+
+                {/* Role / Specialty Filter */}
+                <select
+                  value={filterTeamRole}
+                  onChange={(e) => setFilterTeamRole(e.target.value)}
+                  className="px-3 py-2 text-xs rounded-xl border border-[#d6ccbe] bg-[#fcfbfa] text-[#0e2117] focus:border-[#048310] focus:outline-hidden"
+                >
+                  <option value="All">All Roles</option>
+                  <option value="Naturalist">Naturalists</option>
+                  <option value="Guide">Safari Guides</option>
+                  <option value="Directorate">Operations &amp; Directorate</option>
+                </select>
+
+                {(searchQuery || filterTeamRole !== 'All') && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery('');
+                      setFilterTeamRole('All');
+                    }}
+                    className="text-xs text-[#ee5f27] hover:underline font-semibold"
+                  >
+                    Reset Filters
+                  </button>
+                )}
+              </div>
+
+              {/* Add New Team Member Button */}
+              <button
+                onClick={handleOpenAddTeamMember}
+                className="bg-[#048310] hover:bg-[#036a0d] text-white px-4 py-2.5 rounded-xl text-xs font-bold transition-all shadow-sm flex items-center justify-center gap-2 shrink-0 active:scale-98"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add Team Member</span>
+              </button>
+            </div>
+
+            {/* Team Roster Grid */}
+            {filteredTeamMembers.length === 0 ? (
+              <div className="bg-white p-12 rounded-2xl border border-[#e5ddcf] text-center space-y-3">
+                <Users2 className="w-12 h-12 text-[#9ab0a0] mx-auto" />
+                <h3 className="text-base font-bold text-[#0e2117]">No team members found</h3>
+                <p className="text-xs text-[#526355] max-w-sm mx-auto">
+                  No naturalist guides match your search criteria. Try clearing filters or add a new team member.
+                </p>
+                <button
+                  type="button"
+                  onClick={handleOpenAddTeamMember}
+                  className="inline-flex items-center gap-2 bg-[#048310] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-xs hover:bg-[#036a0d]"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add First Guide</span>
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredTeamMembers.map((member) => (
+                  <div
+                    key={member.id}
+                    className="bg-white rounded-2xl border border-[#e3dacf] shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+                  >
+                    <div>
+                      {/* Photo Header */}
+                      <div className="h-56 w-full relative overflow-hidden bg-gray-100">
+                        <img
+                          src={member.image}
+                          alt={member.name}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src =
+                              'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80';
+                          }}
+                        />
+                      </div>
+
+                      {/* Content Details */}
+                      <div className="p-5 space-y-3">
+                        <div>
+                          <h3 className="font-bold text-base text-[#0e2117] group-hover:text-[#ee5f27] transition-colors">
+                            {member.name}
+                          </h3>
+                          <p className="text-xs font-semibold text-[#ee5f27] mt-0.5">
+                            {member.role}
+                          </p>
+                        </div>
+
+                        {/* Bio summary */}
+                        <p className="text-xs text-[#526356] line-clamp-3 leading-relaxed">
+                          {member.bio}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Card Actions Footer */}
+                    <div className="p-4 bg-[#faf7f2] border-t border-[#ede4d7] flex items-center justify-between gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setPreviewTeamMember(member)}
+                        className="text-xs font-semibold text-[#048310] hover:text-[#036a0d] flex items-center gap-1.5 transition-colors"
+                        title="Preview Customer Pop-up Window"
+                      >
+                        <Eye className="w-3.5 h-3.5" />
+                        <span>Preview Pop-up</span>
+                      </button>
+
+                      <div className="flex items-center gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => handleDuplicateTeamMember(member)}
+                          className="p-1.5 text-gray-500 hover:bg-gray-200 rounded-lg transition-colors"
+                          title="Duplicate Member"
+                        >
+                          <Copy className="w-3.5 h-3.5" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleOpenEditTeamMember(member)}
+                          className="px-2.5 py-1.5 text-xs font-bold bg-[#edf6ee] hover:bg-[#d8eedb] text-[#1c4c26] rounded-lg transition-colors flex items-center gap-1"
+                        >
+                          <Edit3 className="w-3.5 h-3.5" />
+                          <span>Edit</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteTeamMemberClick(member)}
+                          className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                          title="Delete Member"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB 4: OVERVIEW & CATALOG BACKUP */}
         {activeTab === 'overview' && (
           <div className="space-y-6">
             <div className="bg-white p-6 rounded-2xl border border-[#e5ddcf] shadow-xs space-y-4">
               <h2 className="text-lg font-bold text-[#0e2117]">Catalog Overview & Synchronization</h2>
               <p className="text-xs text-[#526355] leading-relaxed max-w-2xl">
                 The Tambula CMS operates in live synchronization with the client application. Any adjustments
-                made to group departures, itinerary days, seat capacities, or destinations are automatically persisted
-                and immediately rendered on the public landing page, the dedicated Group Trips page, and interactive booking modals.
+                made to team members, group departures, itinerary days, seat capacities, or destinations are automatically persisted
+                and immediately rendered on the public landing page, the Genesis page, the dedicated Group Trips page, and interactive modals.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-4">
                 <div className="p-4 rounded-xl bg-[#faf7f2] border border-[#ece4d8]">
                   <h4 className="font-bold text-xs text-[#0e2117] mb-1">Group Inventory</h4>
                   <p className="text-2xl font-extrabold text-[#048310]">{groupDepartures.length}</p>
-                  <p className="text-[11px] text-[#6d7e71] mt-1">Scheduled group departure circuits</p>
+                  <p className="text-[11px] text-[#6d7e71] mt-1">Scheduled group departures</p>
                 </div>
 
                 <div className="p-4 rounded-xl bg-[#faf7f2] border border-[#ece4d8]">
-                  <h4 className="font-bold text-xs text-[#0e2117] mb-1">Private Safari Circuits</h4>
+                  <h4 className="font-bold text-xs text-[#0e2117] mb-1">Private Circuits</h4>
                   <p className="text-2xl font-extrabold text-[#ee5f27]">{destinations.length}</p>
                   <p className="text-[11px] text-[#6d7e71] mt-1">Custom private itineraries</p>
                 </div>
 
                 <div className="p-4 rounded-xl bg-[#faf7f2] border border-[#ece4d8]">
-                  <h4 className="font-bold text-xs text-[#0e2117] mb-1">Total Available Capacity</h4>
+                  <h4 className="font-bold text-xs text-[#0e2117] mb-1">Total Group Capacity</h4>
                   <p className="text-2xl font-extrabold text-[#0e2117]">{totalGroupSpots} Seats</p>
-                  <p className="text-[11px] text-[#6d7e71] mt-1">Across all open group departures</p>
+                  <p className="text-[11px] text-[#6d7e71] mt-1">Across all open departures</p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-[#faf7f2] border border-[#ece4d8]">
+                  <h4 className="font-bold text-xs text-[#0e2117] mb-1">Naturalist Guides & Crew</h4>
+                  <p className="text-2xl font-extrabold text-[#048310]">{teamMembers.length}</p>
+                  <p className="text-[11px] text-[#6d7e71] mt-1">Active team roster members</p>
                 </div>
               </div>
             </div>
@@ -912,6 +1274,114 @@ export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
             </div>
           </div>
         )}
+
+        {/* TAB 4: UPLOADS & TRIP MEMORIES CMS */}
+        {activeTab === 'uploads' && (
+          <div className="space-y-6">
+            {/* Action Bar */}
+            <div className="bg-white p-5 rounded-2xl border border-[#e5ddcf] shadow-xs flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-3 grow">
+                <div className="relative grow sm:max-w-xs">
+                  <Search className="w-4 h-4 text-[#758678] absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    placeholder="Search uploaded memories..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-[#d6ccbe] bg-[#fcfbfa] text-[#0e2117] focus:border-[#048310] focus:outline-hidden"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 shrink-0">
+                <button
+                  type="button"
+                  onClick={handleOpenAddUploadMemory}
+                  className="bg-[#048310] hover:bg-[#036a0d] text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-xs transition-colors cursor-pointer"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Upload New Trip Memory</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Uploaded Memories Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {tripMemories
+                .filter((mem) =>
+                  mem.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  mem.destination.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  (mem.leadGuide && mem.leadGuide.toLowerCase().includes(searchQuery.toLowerCase()))
+                )
+                .map((mem) => (
+                  <div
+                    key={mem.id}
+                    className="bg-white rounded-2xl border border-[#e5ddcf] overflow-hidden shadow-xs hover:shadow-md transition-shadow flex flex-col justify-between"
+                  >
+                    <div>
+                      {/* Image Preview */}
+                      <div className="relative aspect-video w-full bg-gray-100 overflow-hidden">
+                        <img
+                          src={mem.coverImage}
+                          alt={mem.title}
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute top-2 left-2 bg-black/70 backdrop-blur-xs text-white text-[10px] px-2 py-0.5 rounded-md font-semibold flex items-center gap-1">
+                          <span>{mem.flag}</span>
+                          <span>{mem.destination}</span>
+                        </div>
+                        <div className="absolute top-2 right-2 bg-[#048310]/90 text-white text-[9px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
+                          <CheckCircle2 className="w-3 h-3" />
+                          <span>Firestore Cloud</span>
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="p-4 space-y-2">
+                        <h4 className="font-bold text-sm text-[#0e2117]">{mem.title}</h4>
+                        <p className="text-xs text-[#526456] line-clamp-2">{mem.summary}</p>
+
+                        <div className="pt-2 border-t border-[#f0eae1] flex items-center justify-between text-[11px] text-[#708072]">
+                          <span>Guide: {mem.leadGuide}</span>
+                          <span>{mem.dates}</span>
+                        </div>
+
+                        {mem.verifiedTestimonial && (
+                          <div className="bg-[#fcfaf7] p-2.5 rounded-xl border border-[#ebdcca] text-[11px] text-[#556358] italic">
+                            "{mem.verifiedTestimonial.quote}"
+                            <span className="block not-italic font-bold text-[#0e2117] mt-1 text-[10px]">
+                              — {mem.verifiedTestimonial.author} ({mem.verifiedTestimonial.location})
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Actions */}
+                    <div className="p-4 pt-0 border-t border-[#f0eae1] mt-2 flex items-center justify-end">
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteTripMemoryClick(mem)}
+                        className="text-red-600 hover:text-red-700 hover:bg-red-50 p-2 rounded-lg transition-colors flex items-center gap-1 text-xs font-semibold cursor-pointer"
+                        title="Delete uploaded memory"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                        <span>Delete Memory</span>
+                      </button>
+                    </div>
+                  </div>
+                ))}
+            </div>
+
+            {tripMemories.length === 0 && (
+              <div className="bg-white p-12 rounded-2xl border border-[#e5ddcf] text-center text-[#556458]">
+                <Camera className="w-10 h-10 mx-auto mb-3 text-gray-300" />
+                <p className="font-bold text-sm text-[#0e2117]">No trip memories uploaded yet</p>
+                <p className="text-xs mt-1">Upload traveler photos, memories, and tour reviews to store in Firestore.</p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* MODALS */}
@@ -940,7 +1410,135 @@ export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
         onConfirm={handleConfirmDelete}
       />
 
-      {/* 4. Reset Confirmation Dialog */}
+      {/* 4. Team Member Add / Edit Modal */}
+      <TeamMemberModal
+        isOpen={isTeamModalOpen}
+        member={selectedTeamForEdit}
+        onClose={() => {
+          setIsTeamModalOpen(false);
+          setSelectedTeamForEdit(null);
+        }}
+        onSave={handleSaveTeamMember}
+      />
+
+      {/* 5. Upload Trip Memory Modal */}
+      <UploadTripMemoryModal
+        isOpen={isUploadMemoryModalOpen}
+        onClose={() => setIsUploadMemoryModalOpen(false)}
+        onAddMemory={handleSaveUploadMemory}
+      />
+
+      {/* 5. Team Member Pop-up Preview (Live preview matching the Genesis Page modal window exactly) */}
+      {previewTeamMember && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200"
+          onClick={() => setPreviewTeamMember(null)}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div 
+            className="relative bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden border border-[#ded5c7] animate-in zoom-in-95 duration-200 my-auto flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Admin Live Preview Banner */}
+            <div className="bg-[#0e2117] text-white px-5 py-2.5 flex items-center justify-between text-xs border-b border-white/10 shrink-0">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#048310] animate-pulse" />
+                <span className="font-bold">Admin CMS Preview Mode</span>
+                <span className="text-white/60 hidden sm:inline">· Exact Customer Pop-up Window</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setPreviewTeamMember(null)}
+                className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                title="Close Preview"
+              >
+                <XIcon className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Pop-up Window: Details on Left, Image on Right */}
+            <div className="flex flex-col-reverse md:flex-row items-stretch overflow-hidden">
+              {/* LEFT SIDE: Details of the Team Member */}
+              <div className="md:w-7/12 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto max-h-[75vh]">
+                <div className="space-y-4">
+                  {/* Category Tag */}
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f3ede3] text-[#0e2117] text-[11px] font-bold tracking-wider uppercase border border-[#e2d8c8]">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#048310]" />
+                    <span>Naturalist Leadership</span>
+                  </div>
+
+                  {/* Name & Role */}
+                  <div>
+                    <h2 className="text-2xl sm:text-3xl font-extrabold text-[#0e2117] tracking-tight">
+                      {previewTeamMember.name}
+                    </h2>
+                    <p className="text-sm font-semibold text-[#ee5f27] mt-1">
+                      {previewTeamMember.role}
+                    </p>
+                  </div>
+
+                  {/* Full In-Depth Story / Bio */}
+                  <div className="space-y-2 pt-2 border-t border-[#f0e9dc]">
+                    <h4 className="text-xs font-bold text-[#0e2117] uppercase tracking-wider">
+                      Guide Background &amp; Story
+                    </h4>
+                    <p className="text-xs sm:text-[13px] text-[#47544b] leading-relaxed whitespace-pre-line">
+                      {previewTeamMember.fullBio}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Modal Action Footer */}
+                <div className="mt-6 pt-4 border-t border-[#eee6da] flex items-center justify-between">
+                  <span className="text-xs text-[#718073]">Previewing public card dialog</span>
+                  <button
+                    type="button"
+                    onClick={() => setPreviewTeamMember(null)}
+                    className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-[#0e2117] text-xs font-medium transition-colors cursor-pointer"
+                  >
+                    Close Preview
+                  </button>
+                </div>
+              </div>
+
+              {/* RIGHT SIDE: Image on the Right */}
+              <div className="md:w-5/12 bg-[#f8f4ee] p-6 sm:p-8 flex flex-col justify-center items-center border-b md:border-b-0 md:border-l border-[#eadecb]">
+                <div className="w-full flex flex-col items-center">
+                  <div className="w-full relative rounded-2xl overflow-hidden shadow-lg border-2 border-white aspect-4/5 sm:aspect-square md:aspect-4/5">
+                    <img
+                      src={previewTeamMember.image}
+                      alt={previewTeamMember.name}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src =
+                          'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80';
+                      }}
+                    />
+                  </div>
+                  <div className="mt-4 text-center">
+                    <span className="text-sm font-bold text-[#0e2117] block">
+                      {previewTeamMember.name}
+                    </span>
+                    <span className="text-xs text-[#718073]">
+                      {previewTeamMember.role}
+                    </span>
+                  </div>
+
+                  <div className="pt-3">
+                    <span className="inline-flex items-center gap-1 text-[10px] text-[#048310] font-semibold bg-[#e7f5ea] px-2.5 py-1 rounded-full border border-[#c4e8cb]">
+                      <CheckCircle2 className="w-3 h-3 text-[#048310]" />
+                      <span>Verified Field Profile</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 6. Reset Confirmation Dialog */}
       {isResetConfirmOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
           <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-red-100 text-[#14261b]">

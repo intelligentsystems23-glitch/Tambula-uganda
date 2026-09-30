@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, 
   Compass, 
@@ -12,8 +12,18 @@ import {
   ChevronRight, 
   ArrowRight,
   MapPin,
-  Calendar
+  Calendar,
+  X,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Globe,
+  ExternalLink,
+  MessageSquare,
+  Edit3
 } from 'lucide-react';
+import { TeamMember } from '../types';
+import { useSafariData } from '../context/SafariDataContext';
 
 interface GenesisPageProps {
   onNavigatePage: (pageId: string) => void;
@@ -24,32 +34,23 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
   onNavigatePage,
   onPlanTrip,
 }) => {
-  const guideTeam = [
-    {
-      name: 'Expedition Directorate',
-      role: 'Head of Safari Operations & Field Guiding',
-      years: '12+ Years Guiding',
-      specialty: 'Primate Tracking, Savannah Big Cats & Cultural Heritage',
-      bio: 'Grounded in Western Uganda within sight of the Rwenzori foothills, our expedition leaders grew up with a deep reverence for wildlife corridors, coordinating over 350 successful gorilla treks and savannah safaris across Uganda and Rwanda.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    },
-    {
-      name: 'Sarah Namubiru',
-      role: 'Senior Naturalist & Ornithology Specialist',
-      years: '9 Years Guiding',
-      specialty: 'Albertine Endemics, Shoebill Stork Tracking & Eco-Lodge Logistics',
-      bio: 'One of Uganda’s premier female naturalist guides, Sarah holds degrees in Wildlife Management and can identify over 700 bird species by call alone.',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
-    },
-    {
-      name: 'David Mukasa',
-      role: 'Head of Fleet & Bush 4x4 Expedition Mechanics',
-      years: '15 Years Experience',
-      specialty: 'Off-Road Navigation, Bush Mechanics & Kidepo Valley Expeditions',
-      bio: 'David oversees Tambula’s customized 4x4 Land Cruiser fleet. There is no remote mountain pass or muddy savannah track in East Africa that David has not conquered with calm confidence.',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
-    },
-  ];
+  const { teamMembers } = useSafariData();
+  const [selectedGuide, setSelectedGuide] = useState<TeamMember | null>(null);
+
+  // Close modal on Escape key press and prevent background scrolling
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedGuide(null);
+    };
+    if (selectedGuide) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedGuide]);
 
   const milestones = [
     {
@@ -179,49 +180,6 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
               We believe that a true safari is an exchange of spirits. When you leave, you leave behind lasting goodwill
               and take home memories etched forever into your soul.
             </p>
-
-            {/* 4 Pillars Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-6">
-              <div className="bg-white p-5 rounded-xl border border-[#e5ded2] shadow-2xs space-y-2">
-                <div className="w-9 h-9 rounded-lg bg-[#0e2117] text-[#ee5f27] flex items-center justify-center">
-                  <Compass className="w-4 h-4" />
-                </div>
-                <h3 className="font-bold text-sm text-[#0e2117]">Indigenous Guide Expertise</h3>
-                <p className="text-xs text-[#526055] leading-relaxed">
-                  Our guides are born naturalists, certified by the Uganda Safari Guides Association (USAGA) with deep wilderness knowledge.
-                </p>
-              </div>
-
-              <div className="bg-white p-5 rounded-xl border border-[#e5ded2] shadow-2xs space-y-2">
-                <div className="w-9 h-9 rounded-lg bg-[#048310] text-white flex items-center justify-center">
-                  <TreePine className="w-4 h-4" />
-                </div>
-                <h3 className="font-bold text-sm text-[#0e2117]">Zero-Trace Conservation</h3>
-                <p className="text-xs text-[#526055] leading-relaxed">
-                  We enforce strict distance regulations around gorillas, avoid single-use plastics in all vehicles, and fund tree nurseries.
-                </p>
-              </div>
-
-              <div className="bg-white p-5 rounded-xl border border-[#e5ded2] shadow-2xs space-y-2">
-                <div className="w-9 h-9 rounded-lg bg-[#ee5f27] text-white flex items-center justify-center">
-                  <Heart className="w-4 h-4" />
-                </div>
-                <h3 className="font-bold text-sm text-[#0e2117]">Community Empowerment</h3>
-                <p className="text-xs text-[#526055] leading-relaxed">
-                  Every safari directly subsidizes school desks, clean water filtration, and cooperative salaries for Batwa artisan women.
-                </p>
-              </div>
-
-              <div className="bg-white p-5 rounded-xl border border-[#e5ded2] shadow-2xs space-y-2">
-                <div className="w-9 h-9 rounded-lg bg-[#0e2117] text-white flex items-center justify-center">
-                  <ShieldCheck className="w-4 h-4 text-[#048310]" />
-                </div>
-                <h3 className="font-bold text-sm text-[#0e2117]">Safety & Reliability</h3>
-                <p className="text-xs text-[#526055] leading-relaxed">
-                  Modern 4x4 fleet with satellite GPS tracking, wilderness first-aid kits, and official licensing under UTB and UWA.
-                </p>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Visual Photo & Official Accreditations */}
@@ -285,6 +243,73 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
               </div>
             </div>
           </div>
+
+          {/* 4 Pillars: On one line on desktop, scrollable on smaller screens */}
+          <div className="lg:col-span-12 pt-6 border-t border-[#e8dfd2]/80 mt-2">
+            <div className="flex items-center justify-between mb-3 lg:hidden">
+              <span className="text-[11px] font-bold text-[#ee5f27] uppercase tracking-wider">
+                Tambula Core Guiding Pillars
+              </span>
+              <span className="text-[11px] text-[#6d7c70] flex items-center gap-1 font-medium">
+                <span>Swipe horizontally</span>
+                <span>→</span>
+              </span>
+            </div>
+
+            <div className="flex overflow-x-auto lg:grid lg:grid-cols-4 gap-4 pb-3 scrollbar-thin scrollbar-thumb-[#d5cbbe] scrollbar-track-transparent snap-x snap-mandatory">
+              {/* Card 1: Indigenous Guide Expertise */}
+              <div className="min-w-[270px] sm:min-w-[290px] lg:min-w-0 flex-1 shrink-0 snap-start bg-white p-5 rounded-2xl border border-[#e5ded2] shadow-2xs hover:shadow-md transition-shadow space-y-2.5 flex flex-col justify-between">
+                <div className="space-y-2.5">
+                  <div className="w-10 h-10 rounded-xl bg-[#0e2117] text-[#ee5f27] flex items-center justify-center shadow-2xs">
+                    <Compass className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-base sm:text-lg text-[#0e2117]">Indigenous Guide Expertise</h3>
+                  <p className="text-sm sm:text-[15px] text-[#526055] leading-relaxed">
+                    Our guides are born naturalists, certified by the Uganda Safari Guides Association (USAGA) with deep wilderness knowledge.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 2: Zero-Trace Conservation */}
+              <div className="min-w-[270px] sm:min-w-[290px] lg:min-w-0 flex-1 shrink-0 snap-start bg-white p-5 rounded-2xl border border-[#e5ded2] shadow-2xs hover:shadow-md transition-shadow space-y-2.5 flex flex-col justify-between">
+                <div className="space-y-2.5">
+                  <div className="w-10 h-10 rounded-xl bg-[#048310] text-white flex items-center justify-center shadow-2xs">
+                    <TreePine className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-base sm:text-lg text-[#0e2117]">Zero-Trace Conservation</h3>
+                  <p className="text-sm sm:text-[15px] text-[#526055] leading-relaxed">
+                    We enforce strict distance regulations around gorillas, avoid single-use plastics in all vehicles, and fund tree nurseries.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 3: Community Empowerment */}
+              <div className="min-w-[270px] sm:min-w-[290px] lg:min-w-0 flex-1 shrink-0 snap-start bg-white p-5 rounded-2xl border border-[#e5ded2] shadow-2xs hover:shadow-md transition-shadow space-y-2.5 flex flex-col justify-between">
+                <div className="space-y-2.5">
+                  <div className="w-10 h-10 rounded-xl bg-[#ee5f27] text-white flex items-center justify-center shadow-2xs">
+                    <Heart className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-base sm:text-lg text-[#0e2117]">Community Empowerment</h3>
+                  <p className="text-sm sm:text-[15px] text-[#526055] leading-relaxed">
+                    Every safari directly subsidizes school desks, clean water filtration, and cooperative salaries for Batwa artisan women.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 4: Safety & Reliability */}
+              <div className="min-w-[270px] sm:min-w-[290px] lg:min-w-0 flex-1 shrink-0 snap-start bg-white p-5 rounded-2xl border border-[#e5ded2] shadow-2xs hover:shadow-md transition-shadow space-y-2.5 flex flex-col justify-between">
+                <div className="space-y-2.5">
+                  <div className="w-10 h-10 rounded-xl bg-[#0e2117] text-[#048310] flex items-center justify-center shadow-2xs">
+                    <ShieldCheck className="w-5 h-5" />
+                  </div>
+                  <h3 className="font-bold text-base sm:text-lg text-[#0e2117]">Safety & Reliability</h3>
+                  <p className="text-sm sm:text-[15px] text-[#526055] leading-relaxed">
+                    Modern 4x4 fleet with satellite GPS tracking, wilderness first-aid kits, and official licensing under UTB and UWA.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -292,47 +317,191 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
       <div className="bg-[#f5ede3] py-20 border-t border-[#e5dcce]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
-            <span className="text-[#ee5f27] text-xs font-bold uppercase tracking-widest">
+            <span className="text-[#ee5f27] text-xs sm:text-sm font-bold uppercase tracking-widest">
               THE PEOPLE BEHIND YOUR JOURNEY
             </span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[#0e2117]">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0e2117]">
               Meet Our Senior Naturalist Guides
             </h2>
-            <p className="text-[#556358] text-sm">
+            <p className="text-[#556358] text-base sm:text-lg">
               Your safari is only as extraordinary as the eyes guiding you. Meet the passionate storytellers who lead our expeditions.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {guideTeam.map((guide) => (
+            {teamMembers.map((guide) => (
               <div 
-                key={guide.name}
-                className="bg-white rounded-2xl overflow-hidden border border-[#e3dacf] shadow-xs flex flex-col justify-between"
+                key={guide.id || guide.name}
+                onClick={() => setSelectedGuide(guide)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setSelectedGuide(guide);
+                  }
+                }}
+                className="group bg-white rounded-2xl overflow-hidden border border-[#e3dacf] hover:border-[#ee5f27]/60 shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between cursor-pointer transform hover:-translate-y-1.5 focus:outline-hidden focus:ring-2 focus:ring-[#ee5f27]"
               >
                 <div>
-                  <div className="h-56 overflow-hidden relative">
+                  <div className="h-64 overflow-hidden relative">
                     <img
                       src={guide.image}
                       alt={guide.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute top-3 right-3 bg-[#0e2117]/85 backdrop-blur-xs text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">
-                      {guide.years}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+                      <span className="text-white text-sm font-medium flex items-center gap-1.5 drop-shadow-md">
+                        <span>Click to view full bio</span>
+                        <ArrowRight className="w-4 h-4 text-[#ee5f27]" />
+                      </span>
                     </div>
                   </div>
 
                   <div className="p-6 space-y-3">
-                    <h3 className="text-xl font-bold text-[#0e2117]">{guide.name}</h3>
-                    <div className="text-xs font-semibold text-[#ee5f27]">{guide.role}</div>
-                    <div className="text-xs text-[#048310] font-medium">Specialty: {guide.specialty}</div>
-                    <p className="text-xs text-[#526055] leading-relaxed pt-2 border-t border-[#f2ece2]">
+                    <div className="flex items-start justify-between gap-2">
+                      <h3 className="text-xl sm:text-2xl font-bold text-[#0e2117] group-hover:text-[#ee5f27] transition-colors">
+                        {guide.name}
+                      </h3>
+                    </div>
+                    <div className="text-sm font-semibold text-[#ee5f27]">{guide.role}</div>
+                    <p className="text-sm text-[#526055] leading-relaxed pt-2 border-t border-[#f2ece2] line-clamp-3">
                       {guide.bio}
                     </p>
+                  </div>
+                </div>
+
+                <div className="px-6 pb-6 pt-1">
+                  <div className="w-full py-2.5 px-4 rounded-xl bg-[#faf6f0] group-hover:bg-[#0e2117] text-[#0e2117] group-hover:text-white text-sm font-semibold flex items-center justify-center gap-2 transition-all border border-[#e8ded0] group-hover:border-transparent">
+                    <span>View Full Profile</span>
+                    <ArrowRight className="w-4 h-4 text-[#ee5f27] group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>
               </div>
             ))}
           </div>
+
+          {/* Guide Profile Pop-up Modal Window */}
+          {selectedGuide && (
+            <div 
+              className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-in fade-in duration-200"
+              onClick={(e) => {
+                if (e.target === e.currentTarget) setSelectedGuide(null);
+              }}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-guide-name"
+            >
+              <div 
+                className="relative bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden border border-[#ded5c7] animate-in zoom-in-95 duration-200 my-auto flex flex-col-reverse md:flex-row items-stretch"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button
+                  type="button"
+                  onClick={() => setSelectedGuide(null)}
+                  className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all shadow-md active:scale-95 focus:outline-hidden cursor-pointer"
+                  aria-label="Close dialog"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+
+                {/* LEFT SIDE: Details of the Team Member */}
+                <div className="md:w-7/12 p-6 sm:p-8 flex flex-col justify-between overflow-y-auto max-h-[85vh]">
+                  <div className="space-y-5">
+                    {/* Category Tag */}
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#f3ede3] text-[#0e2117] text-xs font-bold tracking-wider uppercase border border-[#e2d8c8]">
+                      <ShieldCheck className="w-4 h-4 text-[#048310]" />
+                      <span>Naturalist Leadership</span>
+                    </div>
+
+                    {/* Name & Role */}
+                    <div>
+                      <h2 id="modal-guide-name" className="text-2xl sm:text-3xl font-extrabold text-[#0e2117] tracking-tight">
+                        {selectedGuide.name}
+                      </h2>
+                      <p className="text-sm sm:text-base font-semibold text-[#ee5f27] mt-1">
+                        {selectedGuide.role}
+                      </p>
+                    </div>
+
+                    {/* Full In-Depth Story / Bio */}
+                    <div className="space-y-2 pt-2 border-t border-[#f0e9dc]">
+                      <h4 className="text-sm font-bold text-[#0e2117] uppercase tracking-wider">
+                        Guide Background &amp; Story
+                      </h4>
+                      <p className="text-sm sm:text-base text-[#47544b] leading-relaxed whitespace-pre-line">
+                        {selectedGuide.fullBio}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Modal Action Footer */}
+                  <div className="mt-8 pt-4 border-t border-[#eee6da] flex flex-col sm:flex-row gap-2.5">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const guideName = selectedGuide.name;
+                        setSelectedGuide(null);
+                        onPlanTrip(`Private Safari with Guide: ${guideName}`);
+                      }}
+                      className="flex-1 bg-[#ee5f27] hover:bg-[#d64e18] text-white py-3.5 px-4 rounded-xl text-sm font-bold transition-all shadow-md active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+                    >
+                      <MessageSquare className="w-4 h-4" />
+                      <span>Request {selectedGuide.name.split(' ')[0]} for Safari</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedGuide(null);
+                        onNavigatePage('admin-team');
+                      }}
+                      className="px-4 py-3.5 rounded-xl border border-[#ded5c7] hover:bg-[#f2ece2] text-[#0e2117] text-sm font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                      title="Edit this naturalist guide in the CMS"
+                    >
+                      <Edit3 className="w-4 h-4 text-[#ee5f27]" />
+                      <span>Edit in CMS</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setSelectedGuide(null)}
+                      className="px-5 py-3.5 rounded-xl bg-gray-100 hover:bg-gray-200 text-[#0e2117] text-sm font-semibold transition-colors cursor-pointer"
+                    >
+                      Close Profile
+                    </button>
+                  </div>
+                </div>
+
+                {/* RIGHT SIDE: Image on the Right */}
+                <div className="md:w-5/12 bg-[#f8f4ee] p-6 sm:p-8 flex flex-col justify-center items-center border-b md:border-b-0 md:border-l border-[#eadecb]">
+                  <div className="w-full flex flex-col items-center">
+                    <div className="w-full relative rounded-2xl overflow-hidden shadow-lg border-2 border-white aspect-4/5 sm:aspect-square md:aspect-4/5">
+                      <img
+                        src={selectedGuide.image}
+                        alt={selectedGuide.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="mt-4 text-center">
+                      <span className="text-sm font-bold text-[#0e2117] block">
+                        {selectedGuide.name}
+                      </span>
+                      <span className="text-xs text-[#718073]">
+                        {selectedGuide.role}
+                      </span>
+                    </div>
+
+                    <div className="pt-3">
+                      <span className="inline-flex items-center gap-1 text-[10px] text-[#048310] font-semibold bg-[#e7f5ea] px-2.5 py-1 rounded-full border border-[#c4e8cb]">
+                        <CheckCircle2 className="w-3 h-3 text-[#048310]" />
+                        <span>Verified Field Profile</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
