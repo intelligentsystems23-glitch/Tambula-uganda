@@ -319,7 +319,7 @@ export const TeamMemberModal: React.FC<TeamMemberModalProps> = ({
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Sarah Namubiru"
+                  placeholder="e.g. Grace Nakato"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="w-full px-3.5 py-2 text-xs rounded-xl border border-[#d3c7b6] bg-[#fbf9f6] focus:border-[#048310] focus:outline-hidden"

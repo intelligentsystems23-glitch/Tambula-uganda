@@ -129,7 +129,9 @@ export const SafariDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         const stored = localStorage.getItem(TEAM_MEMBERS_STORAGE_KEY);
         if (stored) {
           const parsed = JSON.parse(stored);
-          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return parsed.filter((m: TeamMember) => m.id !== 'sarah');
+          }
         }
       } catch (err) {
         console.error('Failed reading team members cache:', err);
@@ -239,6 +241,10 @@ export const SafariDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       }
 
       const existingTeamIds = new Set(teamSnap.docs.map((d) => d.id));
+      if (existingTeamIds.has('sarah')) {
+        batch.delete(doc(db, 'teamMembers', 'sarah'));
+        needsCommit = true;
+      }
       initialTeamMembers.forEach((member) => {
         if (!existingTeamIds.has(member.id)) {
           batch.set(doc(db, 'teamMembers', member.id), member);
@@ -276,6 +282,9 @@ export const SafariDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
 
         // Check if database needs initial seeding
         await seedFirestoreIfEmpty();
+
+        // Ensure Sarah Namubiru is deleted from Firestore database
+        deleteDoc(doc(db, 'teamMembers', 'sarah')).catch(() => {});
 
         // 0. Hero Slides listener
         unsubSlide = onSnapshot(
@@ -338,7 +347,12 @@ export const SafariDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
           (snapshot) => {
             if (!snapshot.empty) {
               const list: TeamMember[] = [];
-              snapshot.forEach((d) => list.push(d.data() as TeamMember));
+              snapshot.forEach((d) => {
+                const data = d.data() as TeamMember;
+                if (data.id !== 'sarah') {
+                  list.push(data);
+                }
+              });
               setTeamMembers(list);
             }
             setSyncStatus('connected');
@@ -660,7 +674,12 @@ export const SafariDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       }
       if (!teamSnap.empty) {
         const list: TeamMember[] = [];
-        teamSnap.forEach((d) => list.push(d.data() as TeamMember));
+        teamSnap.forEach((d) => {
+          const data = d.data() as TeamMember;
+          if (data.id !== 'sarah') {
+            list.push(data);
+          }
+        });
         setTeamMembers(list);
       }
       if (!memSnap.empty) {
@@ -690,6 +709,7 @@ export const SafariDataProvider: React.FC<{ children: React.ReactNode }> = ({ ch
       initialDestinations.forEach((dest) => batch.set(doc(db, 'destinations', dest.id), dest));
       initialGroupDepartures.forEach((dep) => batch.set(doc(db, 'groupDepartures', dep.id), dep));
       initialTeamMembers.forEach((member) => batch.set(doc(db, 'teamMembers', member.id), member));
+      batch.delete(doc(db, 'teamMembers', 'sarah'));
       initialFormerTrips.forEach((mem) => batch.set(doc(db, 'tripMemories', mem.id), mem));
 
       await batch.commit();

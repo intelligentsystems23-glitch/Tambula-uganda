@@ -19,13 +19,10 @@ import {
   Linkedin,
   Globe,
   ExternalLink,
-  MessageSquare,
-  Edit3,
-  Plus
+  MessageSquare
 } from 'lucide-react';
 import { TeamMember } from '../types';
 import { useSafariData } from '../context/SafariDataContext';
-import { TeamMemberModal } from '../components/admin/TeamMemberModal';
 
 interface GenesisPageProps {
   onNavigatePage: (pageId: string) => void;
@@ -36,30 +33,8 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
   onNavigatePage,
   onPlanTrip,
 }) => {
-  const { teamMembers, updateTeamMember, addTeamMember } = useSafariData();
+  const { teamMembers } = useSafariData();
   const [selectedGuide, setSelectedGuide] = useState<TeamMember | null>(null);
-  const [isTeamModalOpen, setIsTeamModalOpen] = useState(false);
-  const [editingGuide, setEditingGuide] = useState<TeamMember | null>(null);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3500);
-  };
-
-  const handleSaveGuide = async (member: TeamMember) => {
-    if (editingGuide) {
-      await updateTeamMember(member.id, member);
-      showToast(`Successfully updated: "${member.name}"`);
-    } else {
-      await addTeamMember(member);
-      showToast(`Added new guide: "${member.name}"`);
-    }
-    // Update the selected guide if open in preview
-    if (selectedGuide && (selectedGuide.id === member.id || selectedGuide.name === member.name)) {
-      setSelectedGuide(member);
-    }
-  };
 
   // Close modal on Escape key press and prevent background scrolling
   useEffect(() => {
@@ -340,32 +315,16 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
       {/* Guide Leadership Team */}
       <div className="bg-[#f5ede3] py-20 border-t border-[#e5dcce]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 max-w-4xl mx-auto mb-16">
-            <div className="text-left sm:text-center sm:grow space-y-3">
-              <span className="text-[#ee5f27] text-xs sm:text-sm font-bold uppercase tracking-widest">
-                THE PEOPLE BEHIND YOUR JOURNEY
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0e2117]">
-                Meet Our Senior Naturalist Guides
-              </h2>
-              <p className="text-[#556358] text-base sm:text-lg">
-                Your safari is only as extraordinary as the eyes guiding you. Meet the passionate storytellers who lead our expeditions.
-              </p>
-            </div>
-            <div className="shrink-0 flex items-center gap-2 self-start sm:self-center">
-              <button
-                type="button"
-                onClick={() => {
-                  setEditingGuide(null);
-                  setIsTeamModalOpen(true);
-                }}
-                className="inline-flex items-center gap-2 bg-[#048310] hover:bg-[#036a0d] text-white px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all shadow-sm active:scale-98 cursor-pointer"
-                title="Add a new naturalist guide to the team"
-              >
-                <Plus className="w-4 h-4" />
-                <span>Add Guide</span>
-              </button>
-            </div>
+          <div className="text-center max-w-2xl mx-auto mb-16 space-y-3">
+            <span className="text-[#ee5f27] text-xs sm:text-sm font-bold uppercase tracking-widest">
+              THE PEOPLE BEHIND YOUR JOURNEY
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#0e2117]">
+              Meet Our Senior Naturalist Guides
+            </h2>
+            <p className="text-[#556358] text-base sm:text-lg">
+              Your safari is only as extraordinary as the eyes guiding you. Meet the passionate storytellers who lead our expeditions.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -415,23 +374,11 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
                   </div>
                 </div>
 
-                <div className="px-6 pb-6 pt-1 flex items-center gap-2">
-                  <div className="grow py-2.5 px-4 rounded-xl bg-[#faf6f0] group-hover:bg-[#0e2117] text-[#0e2117] group-hover:text-white text-sm font-semibold flex items-center justify-center gap-2 transition-all border border-[#e8ded0] group-hover:border-transparent">
-                    <span>View Profile</span>
+                <div className="px-6 pb-6 pt-1">
+                  <div className="w-full py-2.5 px-4 rounded-xl bg-[#faf6f0] group-hover:bg-[#0e2117] text-[#0e2117] group-hover:text-white text-sm font-semibold flex items-center justify-center gap-2 transition-all border border-[#e8ded0] group-hover:border-transparent">
+                    <span>View Full Profile</span>
                     <ArrowRight className="w-4 h-4 text-[#ee5f27] group-hover:translate-x-1 transition-transform" />
                   </div>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setEditingGuide(guide);
-                      setIsTeamModalOpen(true);
-                    }}
-                    className="p-2.5 rounded-xl bg-white border border-[#ded5c7] hover:border-[#048310] text-[#048310] hover:bg-[#edf7ef] transition-colors shrink-0 cursor-pointer shadow-2xs"
-                    title={`Edit ${guide.name || 'guide'}'s details`}
-                  >
-                    <Edit3 className="w-4 h-4" />
-                  </button>
                 </div>
               </div>
             ))}
@@ -493,7 +440,7 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
                   </div>
 
                   {/* Modal Action Footer */}
-                  <div className="mt-8 pt-4 border-t border-[#eee6da] flex flex-col sm:flex-row flex-wrap gap-2.5">
+                  <div className="mt-8 pt-4 border-t border-[#eee6da] flex flex-col sm:flex-row gap-2.5">
                     <button
                       type="button"
                       onClick={() => {
@@ -501,34 +448,10 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
                         setSelectedGuide(null);
                         onPlanTrip(`Private Safari with Guide: ${guideName}`);
                       }}
-                      className="flex-1 min-w-[200px] bg-[#ee5f27] hover:bg-[#d64e18] text-white py-3.5 px-4 rounded-xl text-sm font-bold transition-all shadow-md active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
+                      className="flex-1 bg-[#ee5f27] hover:bg-[#d64e18] text-white py-3.5 px-4 rounded-xl text-sm font-bold transition-all shadow-md active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
                     >
                       <MessageSquare className="w-4 h-4" />
                       <span>Request {(selectedGuide.name || 'Guide').split(' ')[0]} for Safari</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditingGuide(selectedGuide);
-                        setIsTeamModalOpen(true);
-                      }}
-                      className="px-4 py-3.5 rounded-xl bg-[#048310] hover:bg-[#036a0d] text-white text-sm font-bold transition-all shadow-md flex items-center justify-center gap-1.5 cursor-pointer active:scale-98"
-                      title="Edit this naturalist guide's profile"
-                    >
-                      <Edit3 className="w-4 h-4" />
-                      <span>Edit Guide Details</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setSelectedGuide(null);
-                        onNavigatePage('admin-team');
-                      }}
-                      className="px-3.5 py-3.5 rounded-xl border border-[#ded5c7] hover:bg-[#f2ece2] text-[#0e2117] text-sm font-semibold transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
-                      title="Open full CMS to manage team"
-                    >
-                      <Users2 className="w-4 h-4 text-[#ee5f27]" />
-                      <span>Manage in CMS</span>
                     </button>
                     <button
                       type="button"
@@ -642,25 +565,6 @@ export const GenesisPage: React.FC<GenesisPageProps> = ({
           </div>
         </div>
       </div>
-
-      {/* Team Member Edit / Add Modal */}
-      <TeamMemberModal
-        isOpen={isTeamModalOpen}
-        member={editingGuide}
-        onClose={() => {
-          setIsTeamModalOpen(false);
-          setEditingGuide(null);
-        }}
-        onSave={handleSaveGuide}
-      />
-
-      {/* Floating Toast Notification */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 bg-[#0e2117] text-white px-5 py-3 rounded-2xl shadow-2xl border border-white/20 flex items-center gap-2.5 animate-in slide-in-from-bottom-5">
-          <CheckCircle2 className="w-5 h-5 text-[#048310]" />
-          <span className="text-xs font-semibold">{toastMessage}</span>
-        </div>
-      )}
     </div>
   );
 };

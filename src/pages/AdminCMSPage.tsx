@@ -289,6 +289,7 @@ export const AdminCMSPage: React.FC<AdminCMSPageProps> = ({
       showToast(
         `Failed to save "${member.name}": ${err instanceof Error ? err.message : 'Database error'}`
       );
+      throw err;
     }
   };
 

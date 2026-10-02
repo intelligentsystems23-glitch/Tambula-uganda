@@ -1002,31 +1002,6 @@ export const DEFAULT_TEAM_MEMBERS: TeamMember[] = [
     }
   },
   {
-    id: 'sarah',
-    name: 'Sarah Namubiru',
-    role: 'Senior Naturalist & Ornithology Specialist',
-    years: '9 Years Guiding',
-    specialty: 'Albertine Endemics, Shoebill Stork Tracking & Eco-Lodge Logistics',
-    bio: 'One of Uganda’s premier female naturalist guides, Sarah holds degrees in Wildlife Management and can identify over 700 bird species by call alone.',
-    fullBio: "Sarah is celebrated across East Africa as one of Uganda's leading female professional birders and wilderness guides. Holding an honors degree in Wildlife Ecology & Tourism from Makerere University, she combines academic rigor with an intuitive instinct for animal behavior. Whether navigating the papyrus marshes of Mabamba Swamp in search of the elusive Shoebill Stork or discerning the subtle whistle of an Albertine Rift endemic at 2,400 meters elevation in the Rwenzoris, Sarah transforms every game drive and bushwalk into a masterclass in biodiversity conservation.",
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80',
-    languages: ['English', 'Luganda', 'Swahili', 'French (Conversational)'],
-    region: 'Mabamba Wetland, Semuliki & Albertine Rift Corridors',
-    certifications: [
-      'USAGA Ornithology Specialist Star',
-      'Makerere University B.Sc. Wildlife Conservation',
-      'IUCN Wetland Habitat Ambassador',
-      'Eco-Tourism Certified Field Naturalist'
-    ],
-    notableExpeditions: "Documented 682 avian species across 14 expeditions; pioneer mentor in the 'Women In Safari Guiding' initiative in East Africa.",
-    socials: {
-      facebook: 'https://facebook.com/sarah.namubiru.guide',
-      x: 'https://x.com/sarah_ornithology',
-      instagram: 'https://instagram.com/sarah_uganda_wild',
-      linkedin: 'https://linkedin.com/in/sarah-namubiru-wildlife'
-    }
-  },
-  {
     id: 'david',
     name: 'David Mukasa',
     role: 'Head of Fleet & Bush 4x4 Expedition Mechanics',
